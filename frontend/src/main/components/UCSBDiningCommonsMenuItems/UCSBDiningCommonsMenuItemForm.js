@@ -64,6 +64,30 @@ function UCSBDiningCommonsMenuItemForm({
           isInvalid={Boolean(errors.name)}
           {...register("name", {
             required: "Name is required.",
+            maxLength: {
+              value: 255,
+              name: "Max length 255 characters",
+            },
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.name?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="station">Station</Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-station"}
+          id="station"
+          type="text"
+          isInvalid={Boolean(errors.station)}
+          {...register("station", {
+            required: "Station is required.",
+            maxLength: {
+              value: 255,
+              station: "Max length 255 characters",
+            },
           })}
         />
         <Form.Control.Feedback type="invalid">
