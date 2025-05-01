@@ -17,7 +17,7 @@ function UCSBDiningCommonsMenuItemForm({
 
   const navigate = useNavigate();
 
-  const testIdPrefix = "MenuItemForm";
+  const testIdPrefix = "UCSBDiningCommonsMenuItemForm";
 
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
@@ -46,7 +46,7 @@ function UCSBDiningCommonsMenuItemForm({
             required: "Dining Commons Code is required.",
             maxLength: {
               value: 255,
-              diningcommonscode: "Max length 255 characters",
+              message: "Max length 255 characters",
             },
           })}
         />
@@ -66,7 +66,7 @@ function UCSBDiningCommonsMenuItemForm({
             required: "Name is required.",
             maxLength: {
               value: 255,
-              name: "Max length 255 characters",
+              message: "Max length 255 characters",
             },
           })}
         />
@@ -86,12 +86,12 @@ function UCSBDiningCommonsMenuItemForm({
             required: "Station is required.",
             maxLength: {
               value: 255,
-              station: "Max length 255 characters",
+              message: "Max length 255 characters",
             },
           })}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.name?.message}
+          {errors.station?.message}
         </Form.Control.Feedback>
       </Form.Group>
 
