@@ -1,4 +1,4 @@
-const ucsbOrganizationFixtures = {
+export const ucsbOrganizationFixtures = {
   oneUCSBOrganization: {
     id: 1,
     orgCode: "ZBT",
@@ -31,4 +31,4 @@ const ucsbOrganizationFixtures = {
   ],
 };
 
-export { ucsbOrganizationFixtures };
+//export { ucsbOrganizationFixtures };
