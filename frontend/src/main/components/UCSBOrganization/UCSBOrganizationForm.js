@@ -110,7 +110,6 @@ function UCSBOrganizationForm({
       </Form.Group>
 
       <Button type="submit">{buttonLabel}</Button>
-      {buttonLabel}
       <Button
         variant="Secondary"
         onClick={() => navigate(-1)}
