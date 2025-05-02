@@ -1,13 +1,25 @@
 import React from "react";
 import OurTable, { ButtonColumn } from "main/components/OurTable";
-
-import { useBackendMutation } from "main/utils/useBackend";
-import {
-  cellToAxiosParamsDelete,
-  onDeleteSuccess,
-} from "main/utils/recommendationRequestUtils";
 import { useNavigate } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
+
+// Mock functions for Storybook (to avoid file dependency)
+const cellToAxiosParamsDelete = (cell) => ({
+  url: "/api/recommendationrequest",
+  method: "DELETE",
+  params: { id: cell.row.values.id },
+});
+
+const onDeleteSuccess = (message) => {
+  console.log(message);
+};
+
+// Mock useBackendMutation for Storybook
+const useBackendMutation = (_fnParams, _options, _queryKey) => {
+  return {
+    mutate: (cell) => console.log("Delete mutation called", cell)
+  };
+};
 
 export default function RecommendationRequestTable({ requests, currentUser }) {
   const navigate = useNavigate();
@@ -17,7 +29,6 @@ export default function RecommendationRequestTable({ requests, currentUser }) {
   };
 
   // Stryker disable all : hard to test for query caching
-
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
     { onSuccess: onDeleteSuccess },
