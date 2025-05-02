@@ -1,3 +1,5 @@
+//ucsbOrganizationFixtures.js
+
 export const ucsbOrganizationFixtures = {
   oneUCSBOrganization: {
     id: 1,
