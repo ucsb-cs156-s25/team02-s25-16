@@ -69,13 +69,48 @@ function UCSBOrganizationForm({
           })}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.description?.message}
+          {errors.orgTranslationShort?.message}
         </Form.Control.Feedback>
       </Form.Group>
 
-      <Button type="submit" data-testid={testIdPrefix + "-submit"}>
-        {buttonLabel}
-      </Button>
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="orgTranslation">OrgTranslation</Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-orgTranslation"}
+          id="orgTranslation"
+          type="text"
+          isInvalid={Boolean(errors.description)}
+          {...register("orgTranslation", {
+            required: "orgTranslation is required.",
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.orgTranslation?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="inactive">Inactive</Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-inactive"}
+          id="inactive"
+          as="select"
+          isInvalid={Boolean(errors.inactive)}
+          {...register("inactive", {
+            required: "inactive status is required.",
+          })}
+        >
+          <option value="">---</option>
+          <option value="true">True</option>
+          <option value="false">False</option>
+        </Form.Control>
+        <Form.Control.Feedback type="invalid">
+          {errors.inactive?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <Button type="submit">{buttonLabel}</Button>
+      {buttonLabel}
       <Button
         variant="Secondary"
         onClick={() => navigate(-1)}
