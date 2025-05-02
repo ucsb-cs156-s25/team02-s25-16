@@ -1,6 +1,6 @@
 //ucsbOrganizationFixtures.js
 
-ucsbOrganizationFixtures = {
+const ucsbOrganizationFixtures = {
   oneUCSBOrganization: {
     id: 1,
     orgCode: "ZBT",
