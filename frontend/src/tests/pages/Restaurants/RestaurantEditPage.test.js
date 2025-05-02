@@ -144,6 +144,5 @@ describe("RestaurantEditPage tests", () => {
       ); // posted object
       expect(mockNavigate).toHaveBeenCalledWith({ to: "/restaurants" });
     });
-
   });
 });
