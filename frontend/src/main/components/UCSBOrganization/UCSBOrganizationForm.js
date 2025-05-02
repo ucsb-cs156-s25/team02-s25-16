@@ -21,20 +21,6 @@ function UCSBOrganizationForm({
 
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
-      {initialContents && (
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="id">Id</Form.Label>
-          <Form.Control
-            data-testid={testIdPrefix + "-id"}
-            id="id"
-            type="text"
-            {...register("id")}
-            value={initialContents.id}
-            disabled
-          />
-        </Form.Group>
-      )}
-
       <Form.Group className="mb-3">
         <Form.Label htmlFor="orgCode">OrgCode</Form.Label>
         <Form.Control
@@ -44,14 +30,10 @@ function UCSBOrganizationForm({
           isInvalid={Boolean(errors.orgCode)}
           {...register("orgCode", {
             required: "OrgCode is required.",
-            maxLength: {
-              value: 255,
-              message: "Max length 255 characters",
-            },
           })}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.orgCode?.orgCode}
+          {errors.orgCode?.message}
         </Form.Control.Feedback>
       </Form.Group>
 
@@ -63,7 +45,7 @@ function UCSBOrganizationForm({
           data-testid={testIdPrefix + "-orgTranslationShort"}
           id="orgTranslationShort"
           type="text"
-          isInvalid={Boolean(errors.description)}
+          isInvalid={Boolean(errors.orgTranslationShort)}
           {...register("orgTranslationShort", {
             required: "OrgTranslationShort is required.",
           })}
@@ -79,9 +61,9 @@ function UCSBOrganizationForm({
           data-testid={testIdPrefix + "-orgTranslation"}
           id="orgTranslation"
           type="text"
-          isInvalid={Boolean(errors.description)}
+          isInvalid={Boolean(errors.orgTranslation)}
           {...register("orgTranslation", {
-            required: "orgTranslation is required.",
+            required: "OrgTranslation is required.",
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -97,7 +79,7 @@ function UCSBOrganizationForm({
           as="select"
           isInvalid={Boolean(errors.inactive)}
           {...register("inactive", {
-            required: "inactive status is required.",
+            required: "inactive is required",
           })}
         >
           <option value="">---</option>

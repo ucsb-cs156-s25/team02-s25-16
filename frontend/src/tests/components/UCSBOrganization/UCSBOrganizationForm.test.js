@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import UCSBOrganizationForm from "main/components/UCSBOrganization/UCSBOrganizationForm";
-import { ucsbOrganizationFixtures } from "../../../fixtures/ucsbOrganizationFixtures";
+import { ucsbOrganizationFixtures } from "fixtures/ucsbOrganizationFixtures";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -46,7 +46,7 @@ describe("UCSBOrganizationForm tests", () => {
       <QueryClientProvider client={queryClient}>
         <Router>
           <UCSBOrganizationForm
-            initialContents={ucsbOrganizationFixtures.oneOrganization[0]}
+            initialContents={ucsbOrganizationFixtures.oneUCSBOrganization}
           />
         </Router>
       </QueryClientProvider>,
@@ -68,7 +68,7 @@ describe("UCSBOrganizationForm tests", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("OrgTranslationShort")).toBeInTheDocument();
     expect(screen.getByTestId(`${testId}-orgTranslationShort`)).toHaveValue(
-      "Zeta Beta Tau",
+      "ZBT",
     );
 
     expect(
@@ -116,7 +116,7 @@ describe("UCSBOrganizationForm tests", () => {
     await screen.findByText(/OrgCode is required/);
     await screen.findByText(/OrgTranslationShort is required/);
     await screen.findByText(/OrgTranslation is required/);
-    await screen.findByText(/Inactive status is required/);
+    await screen.findByText(/inactive is required/);
   });
 
   test("dropdown for inactive can be selected", async () => {

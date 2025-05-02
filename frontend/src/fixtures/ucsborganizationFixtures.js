@@ -3,7 +3,7 @@ const ucsbOrganizationFixtures = {
     id: 1,
     orgCode: "ZBT",
     orgTranslationShort: "ZBT",
-    orgTranslation: "zeta beta tau",
+    orgTranslation: "Zeta Beta Tau",
     inactive: false,
   },
   threeUCSBOrganization: [
@@ -11,7 +11,7 @@ const ucsbOrganizationFixtures = {
       id: 1,
       orgCode: "ZBT",
       orgTranslationShort: "ZBT",
-      orgTranslation: "zeta beta tau",
+      orgTranslation: "Zeta Beta Tau",
       inactive: false,
     },
     {
