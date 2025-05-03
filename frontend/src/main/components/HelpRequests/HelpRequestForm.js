@@ -108,6 +108,7 @@ function HelpRequestForm({
               data-testid="HelpRequestForm-requestTime"
               id="requestTime"
               type="datetime-local"
+              step="1"
               isInvalid={Boolean(errors.localDateTime)}
               {...register("requestTime", {
                 required: true,
