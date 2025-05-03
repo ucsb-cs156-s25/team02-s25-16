@@ -130,9 +130,13 @@ function HelpRequestForm({
               data-testid="HelpRequestForm-explanation"
               id="explanation"
               type="text"
-              isInvalid={Boolean(errors.name)}
+              isInvalid={Boolean(errors.explanation)}
               {...register("explanation", {
                 required: "Explanation is required.",
+                maxLength: {
+                  value: 255,
+                  message: "Explanation must be 255 characters or less.",
+                },
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -150,13 +154,13 @@ function HelpRequestForm({
               data-testid="HelpRequestForm-solved"
               id="solved"
               type="boolean"
-              isInvalid={Boolean(errors.name)}
+              isInvalid={Boolean(errors.solved)}
               {...register("solved", {
                 required: "Solved is required.",
               })}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.explanation?.message}
+              {errors.solved?.message}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
