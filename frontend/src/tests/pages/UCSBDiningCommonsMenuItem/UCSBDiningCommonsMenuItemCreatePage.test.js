@@ -2,10 +2,8 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
@@ -82,7 +80,6 @@ describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
         </MemoryRouter>
       </QueryClientProvider>,
     );
-
     await waitFor(() => {
       expect(screen.getByLabelText("Dining Commons Code")).toBeInTheDocument();
     });
