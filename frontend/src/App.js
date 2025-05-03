@@ -19,6 +19,10 @@ import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
 import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
 
+import RecommendationRequestIndexPage from "main/pages/RecommendationRequest/RecommendationRequestIndexPage";
+import RecommendationRequestCreatePage from "main/pages/RecommendationRequest/RecommendationRequestCreatePage";
+import RecommendationRequestEditPage from "main/pages/RecommendationRequest/RecommendationRequestEditPage";
+
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -81,8 +85,8 @@ function App() {
           <>
             <Route
               exact
-              path="/ucsbdiningcommonsmenuitem"
-              element={<UCSBDiningCommonsMenuItemIndexPage />}
+              path="/recommendationrequest"
+              element={<RecommendationRequestIndexPage />}
             />
           </>
         )}
@@ -90,13 +94,13 @@ function App() {
           <>
             <Route
               exact
-              path="/ucsbdiningcommonsmenuitem/edit/:id"
-              element={<UCSBDiningCommonsMenuItemEditPage />}
+              path="/recommendationrequest/edit/:id"
+              element={<RecommendationRequestEditPage />}
             />
             <Route
               exact
-              path="/ucsbdiningcommonsmenuitem/create"
-              element={<UCSBDiningCommonsMenuItemCreatePage />}
+              path="/recommendationrequest/create"
+              element={<RecommendationRequestCreatePage />}
             />
           </>
         )}
