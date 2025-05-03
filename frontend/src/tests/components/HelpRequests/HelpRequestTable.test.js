@@ -38,9 +38,9 @@ describe("UserTable tests", () => {
       "Table Or Breakout Room",
       "Request Time",
       "Explanation",
-      "Solved"
+      "Solved",
     ];
-    
+
     const expectedFields = [
       "id",
       "requesterEmail",
@@ -48,7 +48,7 @@ describe("UserTable tests", () => {
       "tableOrBreakoutRoom",
       "requestTime",
       "explanation",
-      "solved"
+      "solved",
     ];
     const testId = "HelpRequestTable";
 
@@ -101,9 +101,9 @@ describe("UserTable tests", () => {
       "Table Or Breakout Room",
       "Request Time",
       "Explanation",
-      "Solved"
+      "Solved",
     ];
-    
+
     const expectedFields = [
       "id",
       "requesterEmail",
@@ -111,7 +111,7 @@ describe("UserTable tests", () => {
       "tableOrBreakoutRoom",
       "requestTime",
       "explanation",
-      "solved"
+      "solved",
     ];
     const testId = "HelpRequestTable";
 
