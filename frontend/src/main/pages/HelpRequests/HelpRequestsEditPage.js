@@ -42,7 +42,9 @@ export default function HelpRequestsEditPage({ storybook = false }) {
   });
 
   const onSuccess = (helprequest) => {
-    toast(`Help Request Updated - id: ${helprequest.id} requester email: ${helprequest.requesterEmail}`);
+    toast(
+      `Help Request Updated - id: ${helprequest.id} requester email: ${helprequest.requesterEmail}`,
+    );
   };
 
   const mutation = useBackendMutation(

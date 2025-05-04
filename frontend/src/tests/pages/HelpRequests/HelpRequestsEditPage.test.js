@@ -63,7 +63,9 @@ describe("HelpRequestsEditPage tests", () => {
         </QueryClientProvider>,
       );
       await screen.findByText("Edit Help Request");
-      expect(screen.queryByTestId("HelpRequestForm-requesterEmail")).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId("HelpRequestForm-requesterEmail"),
+      ).not.toBeInTheDocument();
       restoreConsole();
     });
   });
@@ -114,14 +116,22 @@ describe("HelpRequestsEditPage tests", () => {
       await screen.findByTestId("HelpRequestForm-id");
 
       const idField = screen.getByTestId("HelpRequestForm-id");
-      const requesterEmailField = screen.getByTestId("HelpRequestForm-requesterEmail");
+      const requesterEmailField = screen.getByTestId(
+        "HelpRequestForm-requesterEmail",
+      );
       const teamIdField = screen.getByTestId("HelpRequestForm-teamId");
-      const tableOrBreakoutRoomField = screen.getByTestId("HelpRequestForm-tableOrBreakoutRoom");
-      const requestTimeField = screen.getByTestId("HelpRequestForm-requestTime");
-      const explanationField = screen.getByTestId("HelpRequestForm-explanation");
+      const tableOrBreakoutRoomField = screen.getByTestId(
+        "HelpRequestForm-tableOrBreakoutRoom",
+      );
+      const requestTimeField = screen.getByTestId(
+        "HelpRequestForm-requestTime",
+      );
+      const explanationField = screen.getByTestId(
+        "HelpRequestForm-explanation",
+      );
       const solvedField = screen.getByTestId("HelpRequestForm-solved");
       const submitButton = screen.getByTestId("HelpRequestForm-submit");
-      
+
       expect(idField).toBeInTheDocument();
       expect(idField).toHaveValue("1");
       expect(requesterEmailField).toBeInTheDocument();
