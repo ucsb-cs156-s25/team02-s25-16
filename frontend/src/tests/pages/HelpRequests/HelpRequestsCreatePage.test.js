@@ -63,7 +63,6 @@ describe("HelpRequestsCreatePage tests", () => {
   });
 
   test("on submit, makes request to backend, and redirects to /helprequests", async () => {
-    
     const queryClient = new QueryClient();
     const helprequest = {
       id: 1,
