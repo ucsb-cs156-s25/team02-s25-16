@@ -34,6 +34,8 @@ export default function HelpRequestsCreatePage({ storybook = false }) {
   const { isSuccess } = mutation;
 
   const onSubmit = async (data) => {
+    // data.solved = data.solved === "true"; // convert to boolean
+    data.requestTime = data.requestTime.split(".")[0]; // strip milliseconds if needed
     mutation.mutate(data);
   };
 
