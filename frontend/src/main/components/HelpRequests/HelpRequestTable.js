@@ -59,6 +59,7 @@ export default function HelpRequestTable({ helprequests, currentUser }) {
     {
       Header: "Solved",
       accessor: "solved",
+      Cell: ({ value }) => String(value),
     },
   ];
 
