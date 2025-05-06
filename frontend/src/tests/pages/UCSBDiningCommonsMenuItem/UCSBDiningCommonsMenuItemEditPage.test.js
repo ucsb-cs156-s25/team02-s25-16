@@ -1,7 +1,7 @@
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
+import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemEditPage";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
@@ -35,7 +35,7 @@ jest.mock("react-router-dom", () => {
   };
 });
 
-describe("RestaurantEditPage tests", () => {
+describe("UCSBDiningCommonsMenuItemEditPage tests", () => {
   describe("when the backend doesn't return data", () => {
     const axiosMock = new AxiosMockAdapter(axios);
 
@@ -48,7 +48,9 @@ describe("RestaurantEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/restaurants", { params: { id: 17 } }).timeout();
+      axiosMock
+        .onGet("/api/ucsbdiningcommonsmenuitems", { params: { id: 17 } })
+        .timeout();
     });
 
     const queryClient = new QueryClient();
@@ -58,12 +60,14 @@ describe("RestaurantEditPage tests", () => {
       render(
         <QueryClientProvider client={queryClient}>
           <MemoryRouter>
-            <RestaurantEditPage />
+            <UCSBDiningCommonsMenuItemEditPage />
           </MemoryRouter>
         </QueryClientProvider>,
       );
-      await screen.findByText("Edit Restaurant");
-      expect(screen.queryByTestId("Restaurant-name")).not.toBeInTheDocument();
+      await screen.findByText("Edit Menu Item");
+      expect(
+        screen.queryByTestId("UCSBDiningCommonsMenuItem-diningCommonsCode"),
+      ).not.toBeInTheDocument();
       restoreConsole();
     });
   });
@@ -80,69 +84,92 @@ describe("RestaurantEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/restaurants", { params: { id: 17 } }).reply(200, {
-        id: 17,
-        name: "Freebirds",
-        description: "Burritos",
-      });
-      axiosMock.onPut("/api/restaurants").reply(200, {
+      axiosMock
+        .onGet("/api/ucsbdiningcommonsmenuitems", { params: { id: 17 } })
+        .reply(200, {
+          id: 17,
+          diningCommonsCode: "Portola",
+          name: "Chicken",
+          station: "Entrees",
+        });
+      axiosMock.onPut("/api/ucsbdiningcommonsmenuitems").reply(200, {
         id: "17",
-        name: "Freebirds World Burrito",
-        description: "Really big Burritos",
+        diningCommonsCode: "Carrillo",
+        name: "Chicken Noodle Soup",
+        station: "Soups",
       });
     });
 
     const queryClient = new QueryClient();
 
-    test("Is populated with the data provided", async () => {
+    test("Is populated with the data provided and changes when data is changed", async () => {
       render(
         <QueryClientProvider client={queryClient}>
           <MemoryRouter>
-            <RestaurantEditPage />
+            <UCSBDiningCommonsMenuItemEditPage />
           </MemoryRouter>
         </QueryClientProvider>,
       );
 
-      await screen.findByTestId("RestaurantForm-id");
+      await screen.findByTestId("UCSBDiningCommonsMenuItemForm-id");
 
-      const idField = screen.getByTestId("RestaurantForm-id");
-      const nameField = screen.getByTestId("RestaurantForm-name");
-      const descriptionField = screen.getByTestId("RestaurantForm-description");
-      const submitButton = screen.getByTestId("RestaurantForm-submit");
+      const idField = screen.getByTestId("UCSBDiningCommonsMenuItemForm-id");
+      const codeField = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-diningCommonsCode",
+      );
+      const nameField = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-name",
+      );
+      const stationField = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-station",
+      );
+      const submitButton = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-submit",
+      );
 
       expect(idField).toBeInTheDocument();
       expect(idField).toHaveValue("17");
+      expect(codeField).toBeInTheDocument();
+      expect(codeField).toHaveValue("Portola");
       expect(nameField).toBeInTheDocument();
-      expect(nameField).toHaveValue("Freebirds");
-      expect(descriptionField).toBeInTheDocument();
-      expect(descriptionField).toHaveValue("Burritos");
+      expect(nameField).toHaveValue("Chicken");
+      expect(stationField).toBeInTheDocument();
+      expect(stationField).toHaveValue("Entrees");
 
       expect(submitButton).toHaveTextContent("Update");
 
-      fireEvent.change(nameField, {
-        target: { value: "Freebirds World Burrito" },
+      fireEvent.change(codeField, {
+        target: { value: "Carrillo" },
       });
-      fireEvent.change(descriptionField, {
-        target: { value: "Totally Giant Burritos" },
+      fireEvent.change(nameField, {
+        target: { value: "Chicken Noodle Soup" },
+      });
+      fireEvent.change(stationField, {
+        target: { value: "Soups" },
       });
       fireEvent.click(submitButton);
 
-      await waitFor(() => expect(mockToast).toBeCalled());
-      expect(mockToast).toBeCalledWith(
-        "Restaurant Updated - id: 17 name: Freebirds World Burrito",
+      await waitFor(() => expect(mockToast).toHaveBeenCalled());
+      expect(mockToast).toHaveBeenCalledWith(
+        "Menu Item Updated - id: 17 diningCommonsCode: Carrillo",
       );
 
-      expect(mockNavigate).toBeCalledWith({ to: "/restaurants" });
+      expect(mockNavigate).toHaveBeenCalledWith({
+        to: "/ucsbdiningcommonsmenuitem",
+      });
 
       expect(axiosMock.history.put.length).toBe(1); // times called
       expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
       expect(axiosMock.history.put[0].data).toBe(
         JSON.stringify({
-          name: "Freebirds World Burrito",
-          description: "Totally Giant Burritos",
+          diningCommonsCode: "Carrillo",
+          name: "Chicken Noodle Soup",
+          station: "Soups",
         }),
       ); // posted object
-      expect(mockNavigate).toHaveBeenCalledWith({ to: "/restaurants" });
+      expect(mockNavigate).toHaveBeenCalledWith({
+        to: "/ucsbdiningcommonsmenuitem",
+      });
     });
   });
 });
