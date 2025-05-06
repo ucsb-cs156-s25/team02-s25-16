@@ -67,13 +67,17 @@ describe("UCSBOrganizationForm tests", () => {
       await screen.findByTestId(`${testId}-orgTranslationShort`),
     ).toBeInTheDocument();
     expect(screen.getByText("OrgTranslationShort")).toBeInTheDocument();
-    expect(screen.getByTestId(`${testId}-orgTranslationShort`)).toHaveValue("ZBT");
+    expect(screen.getByTestId(`${testId}-orgTranslationShort`)).toHaveValue(
+      "ZBT",
+    );
 
     expect(
       await screen.findByTestId(`${testId}-orgTranslation`),
     ).toBeInTheDocument();
     expect(screen.getByText("OrgTranslation")).toBeInTheDocument();
-    expect(screen.getByTestId(`${testId}-orgTranslation`)).toHaveValue("Zeta Beta Tau");
+    expect(screen.getByTestId(`${testId}-orgTranslation`)).toHaveValue(
+      "Zeta Beta Tau",
+    );
 
     const inactiveDropdown = await screen.findByTestId(`${testId}-inactive`);
     expect(inactiveDropdown).toBeInTheDocument();
