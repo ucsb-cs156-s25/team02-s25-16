@@ -1,8 +1,8 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import UCSBDiningCommonsMenuItemForm from "main/components/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemForm";
-import { UCSBDiningCommonsMenuItemFixtures } from "fixtures/UCSBDiningCommonsMenuItemFixtures";
+import HelpRequestForm from "main/components/HelpRequests/HelpRequestForm";
+import { helpRequestFixtures } from "fixtures/helpRequestFixtures";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -13,17 +13,22 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedNavigate,
 }));
 
-describe("UCSBDiningCommonsMenuItemForm tests", () => {
+describe("HelpRequestForm tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ["Dining Commons Code", "Name", "Station"];
-  const testId = "UCSBDiningCommonsMenuItemForm";
+  const expectedHeaders = [
+    "Requester Email",
+    "Team ID",
+    "Table Or Breakout Room",
+    "Explanation",
+  ];
+  const testId = "HelpRequestForm";
 
   test("renders correctly with no initialContents", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <UCSBDiningCommonsMenuItemForm />
+          <HelpRequestForm />
         </Router>
       </QueryClientProvider>,
     );
@@ -35,13 +40,12 @@ describe("UCSBDiningCommonsMenuItemForm tests", () => {
       expect(header).toBeInTheDocument();
     });
   });
-
   test("renders correctly when passing in initialContents", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <UCSBDiningCommonsMenuItemForm
-            initialContents={UCSBDiningCommonsMenuItemFixtures.oneMenuItem}
+          <HelpRequestForm
+            initialContents={helpRequestFixtures.oneHelpRequest}
           />
         </Router>
       </QueryClientProvider>,
@@ -62,7 +66,7 @@ describe("UCSBDiningCommonsMenuItemForm tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <UCSBDiningCommonsMenuItemForm />
+          <HelpRequestForm />
         </Router>
       </QueryClientProvider>,
     );
@@ -78,7 +82,7 @@ describe("UCSBDiningCommonsMenuItemForm tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <UCSBDiningCommonsMenuItemForm />
+          <HelpRequestForm />
         </Router>
       </QueryClientProvider>,
     );
@@ -87,29 +91,23 @@ describe("UCSBDiningCommonsMenuItemForm tests", () => {
     const submitButton = screen.getByText(/Create/);
     fireEvent.click(submitButton);
 
-    await screen.findByText(/Dining Commons Code is required/);
-    expect(screen.getByText(/Name is required/)).toBeInTheDocument();
-    expect(screen.getByText(/Station is required/)).toBeInTheDocument();
+    await screen.findByText(/requesterEmail is required./);
+    expect(screen.getByText(/teamId is required./)).toBeInTheDocument();
+    expect(
+      screen.getByText(/tableOrBreakoutRoom is required./),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Explanation is required./)).toBeInTheDocument();
+    expect(screen.getByText(/requestTime is required./)).toBeInTheDocument();
+    expect(screen.getByText(/Solved is required./)).toBeInTheDocument();
 
-    const diningCommonsCodeInput = screen.getByTestId(
-      `${testId}-diningCommonsCode`,
-    );
-    fireEvent.change(diningCommonsCodeInput, {
-      target: { value: "a".repeat(256) },
-    });
-    fireEvent.click(submitButton);
-
-    const nameInput = screen.getByTestId(`${testId}-name`);
+    const nameInput = screen.getByTestId(`${testId}-explanation`);
     fireEvent.change(nameInput, { target: { value: "a".repeat(256) } });
     fireEvent.click(submitButton);
 
-    const stationInput = screen.getByTestId(`${testId}-station`);
-    fireEvent.change(stationInput, { target: { value: "a".repeat(256) } });
-    fireEvent.click(submitButton);
-
     await waitFor(() => {
-      const errors = screen.getAllByText(/Max length 255 characters/);
-      expect(errors.length).toBe(3);
+      expect(
+        screen.getByText(/Explanation must be 255 characters or less./),
+      ).toBeInTheDocument();
     });
   });
 });

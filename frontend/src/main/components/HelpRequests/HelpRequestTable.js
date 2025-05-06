@@ -5,19 +5,15 @@ import { useBackendMutation } from "main/utils/useBackend";
 import {
   cellToAxiosParamsDelete,
   onDeleteSuccess,
-} from "main/utils/UCSBDiningCommonsMenuItemUtils";
+} from "main/utils/helprequestUtils";
 import { useNavigate } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 
-export default function UCSBDiningCommonsMenuItemTable({
-  ucsbdiningcommonsmenuitems,
-  currentUser,
-  testIdPrefix = "UCSBDiningCommonsMenuItemTable",
-}) {
+export default function HelpRequestTable({ helprequests, currentUser }) {
   const navigate = useNavigate();
 
   const editCallback = (cell) => {
-    navigate(`/ucsbdiningcommonsmenuitem/edit/${cell.row.values.id}`);
+    navigate(`/helprequests/edit/${cell.row.values.id}`);
   };
 
   // Stryker disable all : hard to test for query caching
@@ -25,7 +21,7 @@ export default function UCSBDiningCommonsMenuItemTable({
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
     { onSuccess: onDeleteSuccess },
-    ["/api/ucsbdiningcommonsmenuitems/all"],
+    ["/api/helprequests/all"],
   );
   // Stryker restore all
 
@@ -39,33 +35,47 @@ export default function UCSBDiningCommonsMenuItemTable({
       Header: "id",
       accessor: "id", // accessor is the "key" in the data
     },
+    {
+      Header: "Requester Email",
+      accessor: "requesterEmail",
+    },
+    {
+      Header: "Team ID",
+      accessor: "teamId",
+    },
+    {
+      Header: "Table Or Breakout Room",
+      accessor: "tableOrBreakoutRoom",
+    },
+    {
+      Header: "Request Time",
+      accessor: "requestTime",
+    },
+    {
+      Header: "Explanation",
+      accessor: "explanation",
+    },
 
     {
-      Header: "Dining Commons Code",
-      accessor: "diningCommonsCode",
-    },
-    {
-      Header: "Name",
-      accessor: "name",
-    },
-    {
-      Header: "Station",
-      accessor: "station",
+      Header: "Solved",
+      accessor: "solved",
     },
   ];
 
   if (hasRole(currentUser, "ROLE_ADMIN")) {
-    columns.push(ButtonColumn("Edit", "primary", editCallback, testIdPrefix));
     columns.push(
-      ButtonColumn("Delete", "danger", deleteCallback, testIdPrefix),
+      ButtonColumn("Edit", "primary", editCallback, "HelpRequestTable"),
+    );
+    columns.push(
+      ButtonColumn("Delete", "danger", deleteCallback, "HelpRequestTable"),
     );
   }
 
   return (
     <OurTable
-      data={ucsbdiningcommonsmenuitems}
+      data={helprequests}
       columns={columns}
-      testid={testIdPrefix}
+      testid={"HelpRequestTable"}
     />
   );
 }
