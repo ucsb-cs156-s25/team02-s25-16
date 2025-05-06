@@ -150,15 +150,18 @@ function HelpRequestForm({
         <Col>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="solved">Solved</Form.Label>
-            <Form.Control
-              data-testid="HelpRequestForm-solved"
+            <Form.Select
               id="solved"
-              type="boolean"
+              data-testid="HelpRequestForm-solved"
               isInvalid={Boolean(errors.solved)}
               {...register("solved", {
                 required: "Solved is required.",
               })}
-            />
+            >
+              <option value="">-- Select --</option>
+              <option value="true">true</option>
+              <option value="false">false</option>
+            </Form.Select>
             <Form.Control.Feedback type="invalid">
               {errors.solved?.message}
             </Form.Control.Feedback>
