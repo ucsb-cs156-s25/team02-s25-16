@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import UCSBOrganizationForm from "main/components/UCSBOrganizations/UCSBOrganizationForm";
-import { ucsbOrganizationFixtures } from "fixtures/ucsbOrganizationFixtures";
+import { ucsborganizationFixtures } from "fixtures/ucsborganizationFixtures";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -46,7 +46,7 @@ describe("UCSBOrganizationForm tests", () => {
       <QueryClientProvider client={queryClient}>
         <Router>
           <UCSBOrganizationForm
-            initialContents={ucsbOrganizationFixtures.oneOrganization}
+            initialContents={ucsborganizationFixtures.oneOrganization}
           />
         </Router>
       </QueryClientProvider>,
