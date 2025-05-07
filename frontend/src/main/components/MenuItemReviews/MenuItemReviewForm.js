@@ -2,24 +2,28 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-function MenuItemReviewForm({
-  initialContents,
-  submitAction,
-  buttonLabel = "Create",
-}) {
+function MenuItemReviewForm({ initialContents, submitAction, buttonLabel = "Create" }) {
   // Stryker disable all
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({ defaultValues: initialContents || {} });
+  } = useForm({
+    defaultValues:
+      {
+        ...initialContents,
+        dateReviewed: initialContents?.dateReviewed
+        ? initialContents.dateReviewed.replace("Z", "")
+        : ""
+      } || {},
+  });
   // Stryker restore all
 
   const navigate = useNavigate();
 
   const testIdPrefix = "MenuItemReviewForm";
 
-    // For explanation, see: https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
+  // For explanation, see: https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
   // Note that even this complex regex may still need some tweaks
 
   // Stryker disable Regex
@@ -75,26 +79,26 @@ function MenuItemReviewForm({
           })}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.comment?.message}
+          {errors.comments?.message}
         </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group className="mb-3">
-            <Form.Label htmlFor="dateReviewed">Date Reviewed (in UTC)</Form.Label>
-            <Form.Control
-              data-testid={testIdPrefix + "-dateReviewed"}
-              id="dateReviewed"
-              type="datetime-local"
-              isInvalid={Boolean(errors.dateReviewed)}
-              {...register("dateReviewed", {
-                required: true,
-                pattern: isodate_regex,
-              })}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errors.dateReviewed && "Date Reviewed is required. "}
-            </Form.Control.Feedback>
-          </Form.Group>
+        <Form.Label htmlFor="dateReviewed">Date Reviewed (in UTC)</Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-dateReviewed"}
+          id="dateReviewed"
+          type="datetime-local"
+          isInvalid={Boolean(errors.dateReviewed)}
+          {...register("dateReviewed", {
+            required: true,
+            pattern: isodate_regex,
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.dateReviewed && "Date Reviewed is required. "}
+        </Form.Control.Feedback>
+      </Form.Group>
 
       <Button type="submit" data-testid={testIdPrefix + "-submit"}>
         {buttonLabel}
