@@ -3,22 +3,6 @@ import HomePage from "main/pages/HomePage";
 import ProfilePage from "main/pages/ProfilePage";
 import AdminUsersPage from "main/pages/AdminUsersPage";
 
-import UCSBDatesIndexPage from "main/pages/UCSBDates/UCSBDatesIndexPage";
-import UCSBDatesCreatePage from "main/pages/UCSBDates/UCSBDatesCreatePage";
-import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
-
-import RestaurantIndexPage from "main/pages/Restaurants/RestaurantIndexPage";
-import RestaurantCreatePage from "main/pages/Restaurants/RestaurantCreatePage";
-import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
-
-import HelpRequestsIndexPage from "main/pages/HelpRequests/HelpRequestsIndexPage";
-import HelpRequestsCreatePage from "main/pages/HelpRequests/HelpRequestsCreatePage";
-import HelpRequestsEditPage from "main/pages/HelpRequests/HelpRequestsEditPage";
-
-import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
-import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
-import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
-
 import UCSBDiningCommonsMenuItemIndexPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemIndexPage";
 import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
 import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemEditPage";
@@ -28,13 +12,10 @@ import RecommendationRequestCreatePage from "main/pages/RecommendationRequest/Re
 import RecommendationRequestEditPage from "main/pages/RecommendationRequest/RecommendationRequestEditPage";
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
-
 import "bootstrap/dist/css/bootstrap.css";
 import "react-toastify/dist/ReactToastify.css";
-
 function App() {
   const { data: currentUser } = useCurrentUser();
-
   return (
     <BrowserRouter>
       <Routes>
@@ -45,20 +26,24 @@ function App() {
         )}
         {hasRole(currentUser, "ROLE_USER") && (
           <>
-            <Route exact path="/ucsbdates" element={<UCSBDatesIndexPage />} />
+            <Route
+              exact
+              path="/ucsborganizations"
+              element={<UCSBOrganizationsIndexPage />}
+            />
           </>
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
             <Route
               exact
-              path="/ucsbdates/edit/:id"
-              element={<UCSBDatesEditPage />}
+              path="/ucsborganizations/edit/:id"
+              element={<UCSBOrganizationsEditPage />}
             />
             <Route
               exact
-              path="/ucsbdates/create"
-              element={<UCSBDatesCreatePage />}
+              path="/ucsborganiations/create"
+              element={<UCSBOrganizationsCreatePage />}
             />
           </>
         )}
@@ -66,8 +51,6 @@ function App() {
           <>
             <Route
               exact
-              path="/restaurants"
-              element={<RestaurantIndexPage />}
             />
           </>
         )}
@@ -75,105 +58,13 @@ function App() {
           <>
             <Route
               exact
-              path="/restaurants/edit/:id"
-              element={<RestaurantEditPage />}
+              path="/ucsborganizations/edit/:id"
+              element={<UCSBOrganizationsEditPage />}
             />
             <Route
               exact
-              path="/restaurants/create"
-              element={<RestaurantCreatePage />}
-            />
-          </>
-        )}
-        {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route
-              exact
-              path="/helprequests"
-              element={<HelpRequestsIndexPage />}
-            />
-          </>
-        )}
-        {hasRole(currentUser, "ROLE_ADMIN") && (
-          <>
-            <Route
-              exact
-              path="/helprequests/edit/:id"
-              element={<HelpRequestsEditPage />}
-            />
-            <Route
-              exact
-              path="/helprequests/create"
-              element={<HelpRequestsCreatePage />}
-            />
-          </>
-        )}
-        {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route
-              exact
-              path="/recommendationrequest"
-              element={<RecommendationRequestIndexPage />}
-            />
-          </>
-        )}
-        {hasRole(currentUser, "ROLE_ADMIN") && (
-          <>
-            <Route
-              exact
-              path="/recommendationrequest/edit/:id"
-              element={<RecommendationRequestEditPage />}
-            />
-            <Route
-              exact
-              path="/recommendationrequest/create"
-              element={<RecommendationRequestCreatePage />}
-            />
-          </>
-        )}
-        {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route
-              exact
-              path="/ucsbdiningcommonsmenuitem"
-              element={<UCSBDiningCommonsMenuItemIndexPage />}
-            />
-          </>
-        )}
-        {hasRole(currentUser, "ROLE_ADMIN") && (
-          <>
-            <Route
-              exact
-              path="/ucsbdiningcommonsmenuitem/edit/:id"
-              element={<UCSBDiningCommonsMenuItemEditPage />}
-            />
-            <Route
-              exact
-              path="/ucsbdiningcommonsmenuitem/create"
-              element={<UCSBDiningCommonsMenuItemCreatePage />}
-            />
-          </>
-        )}
-        {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route
-              exact
-              path="/placeholder"
-              element={<PlaceholderIndexPage />}
-            />
-          </>
-        )}
-        {hasRole(currentUser, "ROLE_ADMIN") && (
-          <>
-            <Route
-              exact
-              path="/placeholder/edit/:id"
-              element={<PlaceholderEditPage />}
-            />
-            <Route
-              exact
-              path="/placeholder/create"
-              element={<PlaceholderCreatePage />}
+              path="/ucsborganizations/create"
+              element={<UCSBOrganizationsCreatePage />}
             />
           </>
         )}
@@ -181,5 +72,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
 export default App;
