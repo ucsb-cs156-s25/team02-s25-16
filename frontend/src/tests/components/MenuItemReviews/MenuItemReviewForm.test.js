@@ -30,44 +30,42 @@ describe("MenuItemReviewForm tests", () => {
     "Date Reviewed (in UTC)",
   ];
   const testId = "MenuItemReviewForm";
-  
 
   describe("stripZAndTruncate mutant-killing tests", () => {
     test("returns empty string for null or undefined", () => {
       expect(stripZAndTruncate(null)).toBe("");
       expect(stripZAndTruncate(undefined)).toBe("");
     });
-  
+
     test("removes 'Z' from the string", () => {
       const input = "2024-05-01T12:34:56Z";
       const result = stripZAndTruncate(input);
       expect(result.includes("Z")).toBe(false);
     });
-  
+
     test("returns exactly first 16 characters after removing Z", () => {
       const input = "2024-05-01T12:34:56Z";
       const result = stripZAndTruncate(input);
       expect(result).toBe("2024-05-01T12:34");
       expect(result.length).toBe(16);
     });
-  
+
     test("does not remove characters if 'Z' is not present", () => {
       const input = "2024-05-01T12:34:56";
       const result = stripZAndTruncate(input);
       expect(result).toBe("2024-05-01T12:34");
     });
-  
+
     test("short strings are returned unchanged (except for Z)", () => {
-      expect(stripZAndTruncate("Z")).toBe("");             // single Z only
-      expect(stripZAndTruncate("2024Z")).toBe("2024");     // Z removed
-      expect(stripZAndTruncate("2024")).toBe("2024");       // no Z to remove
+      expect(stripZAndTruncate("Z")).toBe(""); // single Z only
+      expect(stripZAndTruncate("2024Z")).toBe("2024"); // Z removed
+      expect(stripZAndTruncate("2024")).toBe("2024"); // no Z to remove
     });
   });
-  
-  
+
   test("submit button triggers submitAction", async () => {
     const mockSubmitAction = jest.fn();
-  
+
     const initialContents = {
       id: 1,
       itemId: 101,
@@ -76,23 +74,25 @@ describe("MenuItemReviewForm tests", () => {
       comments: "Great",
       dateReviewed: "2024-05-01T12:34:56Z",
     };
-  
+
     render(
       <QueryClientProvider client={new QueryClient()}>
         <Router>
-          <MenuItemReviewForm initialContents={initialContents} submitAction={mockSubmitAction} />
+          <MenuItemReviewForm
+            initialContents={initialContents}
+            submitAction={mockSubmitAction}
+          />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
-  
+
     const submitButton = await screen.findByTestId("MenuItemReviewForm-submit");
     fireEvent.click(submitButton);
-  
+
     await waitFor(() => {
       expect(mockSubmitAction).toHaveBeenCalled();
     });
   });
-  
 
   test("renders correctly with no initialContents", async () => {
     render(
@@ -132,12 +132,21 @@ describe("MenuItemReviewForm tests", () => {
     expect(await screen.findByTestId(`${testId}-id`)).toBeInTheDocument();
     expect(screen.getByText(`Id`)).toBeInTheDocument();
 
-    expect(screen.getByLabelText("Item Id")).toHaveValue(menuItemReviewsFixtures.oneMenuItemReview.itemId);
-    expect(screen.getByLabelText("Reviewer Email")).toHaveValue(menuItemReviewsFixtures.oneMenuItemReview.reviewerEmail);
-    expect(screen.getByLabelText("Stars")).toHaveValue(menuItemReviewsFixtures.oneMenuItemReview.stars);
-    expect(screen.getByLabelText("Comments")).toHaveValue(menuItemReviewsFixtures.oneMenuItemReview.comments);
-    expect(screen.getByLabelText("Date Reviewed (in UTC)")).toHaveValue(expectedDate);
-      
+    expect(screen.getByLabelText("Item Id")).toHaveValue(
+      menuItemReviewsFixtures.oneMenuItemReview.itemId,
+    );
+    expect(screen.getByLabelText("Reviewer Email")).toHaveValue(
+      menuItemReviewsFixtures.oneMenuItemReview.reviewerEmail,
+    );
+    expect(screen.getByLabelText("Stars")).toHaveValue(
+      menuItemReviewsFixtures.oneMenuItemReview.stars,
+    );
+    expect(screen.getByLabelText("Comments")).toHaveValue(
+      menuItemReviewsFixtures.oneMenuItemReview.comments,
+    );
+    expect(screen.getByLabelText("Date Reviewed (in UTC)")).toHaveValue(
+      expectedDate,
+    );
   });
 
   test("that navigate(-1) is called when Cancel is clicked", async () => {

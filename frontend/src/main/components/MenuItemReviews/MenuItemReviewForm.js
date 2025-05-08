@@ -13,11 +13,11 @@ function MenuItemReviewForm({
   buttonLabel = "Create",
 }) {
   const defaultValues = initialContents
-  ? {
-      ...initialContents,
-      dateReviewed: stripZAndTruncate(initialContents.dateReviewed),
-    }
-  : {};
+    ? {
+        ...initialContents,
+        dateReviewed: stripZAndTruncate(initialContents.dateReviewed),
+      }
+    : {};
 
   // Stryker disable all
   const {
@@ -55,14 +55,14 @@ function MenuItemReviewForm({
         </Form.Group>
       )}
 
-<Form.Group className="mb-3">
+      <Form.Group className="mb-3">
         <Form.Label htmlFor="itemId">Item Id</Form.Label>
         <Form.Control
           id="itemId"
           type="number"
           isInvalid={Boolean(errors.itemId)}
           {...register("itemId", {
-            required: "Item Id is required."
+            required: "Item Id is required.",
           })}
         />
         <Form.Control.Feedback type="invalid">
