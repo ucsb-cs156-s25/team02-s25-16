@@ -2,21 +2,25 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-function MenuItemReviewForm({ initialContents, submitAction, buttonLabel = "Create" }) {
+function MenuItemReviewForm({
+  initialContents,
+  submitAction,
+  buttonLabel = "Create",
+}) {
+  const defaultValues = initialContents
+    ? {
+        ...initialContents,
+        menuItemReviewTime: initialContents.menuItemReviewTime
+        ? initialContents.menuItemReviewTime.replace("Z", "")
+        : "",
+      }
+    : {};
   // Stryker disable all
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({
-    defaultValues:
-      {
-        ...initialContents,
-        dateReviewed: initialContents?.dateReviewed
-        ? initialContents.dateReviewed.replace("Z", "")
-        : ""
-      } || {},
-  });
+  } = useForm({ defaultValues });
   // Stryker restore all
 
   const navigate = useNavigate();
@@ -58,12 +62,37 @@ function MenuItemReviewForm({ initialContents, submitAction, buttonLabel = "Crea
             required: "Email is required.",
             maxLength: {
               value: 255,
-              message: "Max length 30 characters",
+              message: "Max length 255 characters",
             },
           })}
         />
         <Form.Control.Feedback type="invalid">
           {errors.reviewerEmail?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="stars">Stars</Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-stars"}
+          id="stars"
+          type="number"
+          isInvalid={Boolean(errors.stars)}
+          {...register("stars", {
+            required: "Star rating is required.",
+            min: {
+              value: 1,
+              message: "Minimum value is 1",
+            },
+            max: {
+              value: 5,
+              message: "Maximum value is 5",
+            },
+            valueAsNumber: true, // Converts input to a number
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.stars?.message}
         </Form.Control.Feedback>
       </Form.Group>
 
