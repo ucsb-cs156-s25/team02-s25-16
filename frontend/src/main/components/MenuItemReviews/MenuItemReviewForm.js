@@ -11,8 +11,8 @@ function MenuItemReviewForm({
     ? {
         ...initialContents,
         menuItemReviewTime: initialContents.menuItemReviewTime
-        ? initialContents.menuItemReviewTime.replace("Z", "")
-        : "",
+          ? initialContents.menuItemReviewTime.replace("Z", "")
+          : "",
       }
     : {};
   // Stryker disable all

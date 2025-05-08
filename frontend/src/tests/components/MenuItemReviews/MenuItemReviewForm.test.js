@@ -13,11 +13,15 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedNavigate,
 }));
 
-
 describe("MenuItemReviewForm tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ["Reviewer Email", "Stars", "Comments", "Date Reviewed (in UTC)"];
+  const expectedHeaders = [
+    "Reviewer Email",
+    "Stars",
+    "Comments",
+    "Date Reviewed (in UTC)",
+  ];
   const testId = "MenuItemReviewForm";
 
   test("renders correctly with no initialContents", async () => {
@@ -41,7 +45,9 @@ describe("MenuItemReviewForm tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <MenuItemReviewForm initialContents={menuItemReviewsFixtures.oneMenuItemReview} />
+          <MenuItemReviewForm
+            initialContents={menuItemReviewsFixtures.oneMenuItemReview}
+          />
         </Router>
       </QueryClientProvider>,
     );
@@ -92,7 +98,9 @@ describe("MenuItemReviewForm tests", () => {
     expect(screen.getByText(/Date Reviewed is required/)).toBeInTheDocument();
 
     const reviewerEmailInput = screen.getByTestId(`${testId}-reviewerEmail`);
-    fireEvent.change(reviewerEmailInput, { target: { value: "a".repeat(256) } });
+    fireEvent.change(reviewerEmailInput, {
+      target: { value: "a".repeat(256) },
+    });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
