@@ -2,19 +2,22 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+function stripZAndTruncate(dateStr) {
+  if (!dateStr) return "";
+  return dateStr.replace("Z", "").slice(0, 16);
+}
+
 function MenuItemReviewForm({
   initialContents,
   submitAction,
   buttonLabel = "Create",
 }) {
   const defaultValues = initialContents
-    ? {
-        ...initialContents,
-        dateReviewed: initialContents.dateReviewed
-          ? initialContents.dateReviewed.replace("Z", "").slice(0, 16)
-          : "",
-      }
-    : {};
+  ? {
+      ...initialContents,
+      dateReviewed: stripZAndTruncate(initialContents.dateReviewed),
+    }
+  : {};
 
   // Stryker disable all
   const {
@@ -44,13 +47,28 @@ function MenuItemReviewForm({
           <Form.Control
             data-testid={testIdPrefix + "-id"}
             id="id"
-            type="text"
+            type="number"
             {...register("id")}
             value={initialContents.id}
             disabled
           />
         </Form.Group>
       )}
+
+<Form.Group className="mb-3">
+        <Form.Label htmlFor="itemId">Item Id</Form.Label>
+        <Form.Control
+          id="itemId"
+          type="number"
+          isInvalid={Boolean(errors.itemId)}
+          {...register("itemId", {
+            required: "Item Id is required."
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.itemId?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
 
       <Form.Group className="mb-3">
         <Form.Label htmlFor="reviewerEmail">Reviewer Email</Form.Label>
@@ -75,21 +93,11 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="stars">Stars</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-stars"}
           id="stars"
           type="number"
           isInvalid={Boolean(errors.stars)}
           {...register("stars", {
             required: "Star rating is required.",
-            min: {
-              value: 1,
-              message: "Minimum value is 1",
-            },
-            max: {
-              value: 5,
-              message: "Maximum value is 5",
-            },
-            valueAsNumber: true, // Converts input to a number
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -100,7 +108,6 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="comments">Comments</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-comments"}
           id="comments"
           type="text"
           isInvalid={Boolean(errors.comments)}
@@ -116,7 +123,6 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="dateReviewed">Date Reviewed (in UTC)</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-dateReviewed"}
           id="dateReviewed"
           type="datetime-local"
           isInvalid={Boolean(errors.dateReviewed)}
@@ -145,3 +151,4 @@ function MenuItemReviewForm({
 }
 
 export default MenuItemReviewForm;
+export { stripZAndTruncate };
