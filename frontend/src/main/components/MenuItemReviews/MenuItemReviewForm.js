@@ -10,11 +10,12 @@ function MenuItemReviewForm({
   const defaultValues = initialContents
     ? {
         ...initialContents,
-        menuItemReviewTime: initialContents.menuItemReviewTime
-          ? initialContents.menuItemReviewTime.replace("Z", "")
+        dateReviewed: initialContents.dateReviewed
+          ? initialContents.dateReviewed.replace("Z", "").slice(0, 16)
           : "",
       }
     : {};
+
   // Stryker disable all
   const {
     register,
