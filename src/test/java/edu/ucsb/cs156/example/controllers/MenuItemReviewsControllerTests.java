@@ -109,6 +109,7 @@ public class MenuItemReviewsControllerTests extends ControllerTestCase {
             ZonedDateTime zdt1 = ZonedDateTime.parse("2022-01-03T00:00:00Z");
 
             MenuItemReview menuItemReview1 = MenuItemReview.builder()
+                .itemId(2)
                 .reviewerEmail("christianjlee@ucsb.edu")
                 .stars(4)
                 .comments("test-review")
@@ -166,6 +167,7 @@ public class MenuItemReviewsControllerTests extends ControllerTestCase {
                 ZonedDateTime zdt1 = ZonedDateTime.parse("2022-01-03T00:00:00Z");
 
                 MenuItemReview menuItemReview1 = MenuItemReview.builder()
+                .itemId(2)
                 .reviewerEmail("christianjlee@ucsb.edu")
                 .stars(4)
                 .comments("This is a test review")
@@ -199,13 +201,15 @@ public class MenuItemReviewsControllerTests extends ControllerTestCase {
 
 
                 MenuItemReview menuItemReview1 = MenuItemReview.builder()
+                .itemId(2)
                 .reviewerEmail("christianjlee@ucsb.edu")
                 .stars(4)
                 .comments("This is a test review")
                 .dateReviewed(zdt1)
                 .build();
 
-                 MenuItemReview editedReview = MenuItemReview.builder()
+                MenuItemReview editedReview = MenuItemReview.builder()
+                .itemId(3)
                 .reviewerEmail("christian@ucsb.edu")
                 .stars(2)
                 .comments("This is a test review edited")
@@ -241,6 +245,7 @@ public class MenuItemReviewsControllerTests extends ControllerTestCase {
 
 
                 MenuItemReview menuItemReview1 = MenuItemReview.builder()
+                .itemId(2)
                 .reviewerEmail("christianjlee@ucsb.edu")
                 .stars(4)
                 .comments("This is a test review")
@@ -277,6 +282,7 @@ public class MenuItemReviewsControllerTests extends ControllerTestCase {
 
 
                 MenuItemReview menuItemReview1 = MenuItemReview.builder()
+                .itemId(2)
                 .reviewerEmail("christianjlee@ucsb.edu")
                 .stars(4)
                 .comments("This is a test review")
