@@ -125,6 +125,7 @@ public class MenuItemReviewsController extends ApiController {
         MenuItemReview menuItemReview = menuItemReviewRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(MenuItemReview.class, id));
 
+        menuItemReview.setItemId(incoming.getItemId());
         menuItemReview.setReviewerEmail(incoming.getReviewerEmail());
         menuItemReview.setStars(incoming.getStars());
         menuItemReview.setComments(incoming.getComments());

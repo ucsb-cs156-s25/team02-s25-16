@@ -78,6 +78,7 @@ public class MenuItemReviewsControllerTests extends ControllerTestCase {
             ZonedDateTime zdt1 = ZonedDateTime.parse("2022-01-03T00:00:00Z");
 
             MenuItemReview menuItemReview1 = MenuItemReview.builder()
+                .itemId(1)
                 .reviewerEmail("christianjlee@ucsb.edu")
                 .stars(4)
                 .comments("This is a test review")
@@ -109,7 +110,7 @@ public class MenuItemReviewsControllerTests extends ControllerTestCase {
             ZonedDateTime zdt1 = ZonedDateTime.parse("2022-01-03T00:00:00Z");
 
             MenuItemReview menuItemReview1 = MenuItemReview.builder()
-                .itemId(2)
+                .itemId(1)
                 .reviewerEmail("christianjlee@ucsb.edu")
                 .stars(4)
                 .comments("test-review")
@@ -121,9 +122,10 @@ public class MenuItemReviewsControllerTests extends ControllerTestCase {
 
             // act
             MvcResult response = mockMvc.perform(
-                            post("/api/menuitemreviews/post?comments=test-review&reviewerEmail=christianjlee@ucsb.edu&stars=4&dateReviewed=2022-01-03T00:00:00Z")
-                                            .with(csrf()))
-                            .andExpect(status().isOk()).andReturn();
+                        post("/api/menuitemreviews/post?itemId=1&comments=test-review&reviewerEmail=christianjlee@ucsb.edu&stars=4&dateReviewed=2022-01-03T00:00:00Z")
+                        .with(csrf()))
+                        .andExpect(status().isOk()).andReturn();
+
 
             // assert
             verify(menuItemReviewRepository, times(1)).save(eq(menuItemReview1));
@@ -167,7 +169,7 @@ public class MenuItemReviewsControllerTests extends ControllerTestCase {
                 ZonedDateTime zdt1 = ZonedDateTime.parse("2022-01-03T00:00:00Z");
 
                 MenuItemReview menuItemReview1 = MenuItemReview.builder()
-                .itemId(2)
+                .itemId(1)
                 .reviewerEmail("christianjlee@ucsb.edu")
                 .stars(4)
                 .comments("This is a test review")
@@ -201,7 +203,7 @@ public class MenuItemReviewsControllerTests extends ControllerTestCase {
 
 
                 MenuItemReview menuItemReview1 = MenuItemReview.builder()
-                .itemId(2)
+                .itemId(1)
                 .reviewerEmail("christianjlee@ucsb.edu")
                 .stars(4)
                 .comments("This is a test review")
@@ -209,7 +211,7 @@ public class MenuItemReviewsControllerTests extends ControllerTestCase {
                 .build();
 
                 MenuItemReview editedReview = MenuItemReview.builder()
-                .itemId(3)
+                .itemId(2)
                 .reviewerEmail("christian@ucsb.edu")
                 .stars(2)
                 .comments("This is a test review edited")
@@ -245,7 +247,7 @@ public class MenuItemReviewsControllerTests extends ControllerTestCase {
 
 
                 MenuItemReview menuItemReview1 = MenuItemReview.builder()
-                .itemId(2)
+                .itemId(1)
                 .reviewerEmail("christianjlee@ucsb.edu")
                 .stars(4)
                 .comments("This is a test review")
@@ -282,7 +284,7 @@ public class MenuItemReviewsControllerTests extends ControllerTestCase {
 
 
                 MenuItemReview menuItemReview1 = MenuItemReview.builder()
-                .itemId(2)
+                .itemId(1)
                 .reviewerEmail("christianjlee@ucsb.edu")
                 .stars(4)
                 .comments("This is a test review")
