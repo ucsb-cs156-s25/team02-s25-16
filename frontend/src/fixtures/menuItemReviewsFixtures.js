@@ -1,6 +1,7 @@
 const menuItemReviewsFixtures = {
   oneMenuItemReview: {
     id: 1,
+    itemId: 6,
     reviewerEmail: "christianjlee@gmail.com",
     stars: 3,
     comments: "really average",
@@ -9,6 +10,7 @@ const menuItemReviewsFixtures = {
   threeMenuItemReviews: [
     {
       id: 1,
+      itemId: 6,
       reviewerEmail: "christianjlee@gmail.com",
       stars: 3,
       comments: "really average",
@@ -16,6 +18,7 @@ const menuItemReviewsFixtures = {
     },
     {
       id: 2,
+      itemId: 7,
       reviewerEmail: "jamessmith@gmail.com",
       stars: 1,
       comments: "horrible",
@@ -23,6 +26,7 @@ const menuItemReviewsFixtures = {
     },
     {
       id: 3,
+      itemId: 8,
       reviewerEmail: "johnjones@outlook.com",
       stars: 5,
       comments: "absolutely amazing",
