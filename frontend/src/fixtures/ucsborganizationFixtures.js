@@ -1,7 +1,7 @@
 //ucsbOrganizationFixtures.js
 
-const ucsbOrganizationFixtures = {
-  oneUCSBOrganization: {
+const ucsborganizationFixtures = {
+  oneOrganization: {
     id: 1,
     orgCode: "ZBT",
     orgTranslationShort: "ZBT",
@@ -33,4 +33,4 @@ const ucsbOrganizationFixtures = {
   ],
 };
 
-export { ucsbOrganizationFixtures };
+export { ucsborganizationFixtures };
