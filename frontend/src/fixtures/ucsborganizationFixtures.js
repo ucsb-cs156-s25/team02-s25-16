@@ -1,5 +1,3 @@
-//ucsbOrganizationFixtures.js
-
 const ucsborganizationFixtures = {
   oneOrganization: {
     id: 1,

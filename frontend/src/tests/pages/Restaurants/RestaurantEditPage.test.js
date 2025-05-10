@@ -142,41 +142,7 @@ describe("RestaurantEditPage tests", () => {
           description: "Totally Giant Burritos",
         }),
       ); // posted object
-    });
-
-    test("Changes when you click Update", async () => {
-      render(
-        <QueryClientProvider client={queryClient}>
-          <MemoryRouter>
-            <RestaurantEditPage />
-          </MemoryRouter>
-        </QueryClientProvider>,
-      );
-
-      await screen.findByTestId("RestaurantForm-id");
-
-      const idField = screen.getByTestId("RestaurantForm-id");
-      const nameField = screen.getByTestId("RestaurantForm-name");
-      const descriptionField = screen.getByTestId("RestaurantForm-description");
-      const submitButton = screen.getByTestId("RestaurantForm-submit");
-
-      expect(idField).toHaveValue("17");
-      expect(nameField).toHaveValue("Freebirds");
-      expect(descriptionField).toHaveValue("Burritos");
-      expect(submitButton).toBeInTheDocument();
-
-      fireEvent.change(nameField, {
-        target: { value: "Freebirds World Burrito" },
-      });
-      fireEvent.change(descriptionField, { target: { value: "Big Burritos" } });
-
-      fireEvent.click(submitButton);
-
-      await waitFor(() => expect(mockToast).toBeCalled());
-      expect(mockToast).toBeCalledWith(
-        "Restaurant Updated - id: 17 name: Freebirds World Burrito",
-      );
-      expect(mockNavigate).toBeCalledWith({ to: "/restaurants" });
+      expect(mockNavigate).toHaveBeenCalledWith({ to: "/restaurants" });
     });
   });
 });
