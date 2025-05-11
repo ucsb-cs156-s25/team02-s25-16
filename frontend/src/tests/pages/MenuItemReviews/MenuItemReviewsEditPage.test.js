@@ -64,7 +64,9 @@ describe("MenuItemReviewsEditPage tests", () => {
         </QueryClientProvider>,
       );
       await screen.findByText("Edit Menu Item Review");
-      expect(screen.queryByTestId("MenuItemReview-comments")).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId("MenuItemReview-comments"),
+      ).not.toBeInTheDocument();
       restoreConsole();
     });
   });
@@ -82,14 +84,16 @@ describe("MenuItemReviewsEditPage tests", () => {
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
       // Fixing the URL to match your component's useBackend URL
-      axiosMock.onGet("/api/menuitemreviews", { params: { id: 17 } }).reply(200, {
-        id: 17,
-        itemId: 6,
-        reviewerEmail: "christianjlee@gmail.com",
-        stars: 3,
-        comments: "really average",
-        dateReviewed: "2025-01-10T10:34:00Z",
-      });
+      axiosMock
+        .onGet("/api/menuitemreviews", { params: { id: 17 } })
+        .reply(200, {
+          id: 17,
+          itemId: 6,
+          reviewerEmail: "christianjlee@gmail.com",
+          stars: 3,
+          comments: "really average",
+          dateReviewed: "2025-01-10T10:34:00Z",
+        });
       axiosMock.onPut("/api/menuitemreviews").reply(200, {
         id: 17,
         itemId: 7,
@@ -97,25 +101,28 @@ describe("MenuItemReviewsEditPage tests", () => {
         stars: 1,
         comments: "bad",
         dateReviewed: "2025-12-09T10:00:02Z",
-      });  
+      });
     });
-  
+
     test("Is populated with the data provided", async () => {
       let capturedPutConfig = null; // capture the PUT request config
-    
+
       // Override the PUT mock to capture config
       axiosMock.onPut("/api/menuitemreviews").reply((config) => {
         capturedPutConfig = config;
-        return [200, {
-          id: 17,
-          itemId: 7,
-          reviewerEmail: "james@gmail.com",
-          stars: 1,
-          comments: "bad",
-          dateReviewed: "2025-12-09T10:00:02Z",
-        }];
+        return [
+          200,
+          {
+            id: 17,
+            itemId: 7,
+            reviewerEmail: "james@gmail.com",
+            stars: 1,
+            comments: "bad",
+            dateReviewed: "2025-12-09T10:00:02Z",
+          },
+        ];
       });
-    
+
       render(
         <QueryClientProvider client={queryClient}>
           <MemoryRouter>
@@ -123,18 +130,18 @@ describe("MenuItemReviewsEditPage tests", () => {
           </MemoryRouter>
         </QueryClientProvider>,
       );
-    
+
       await screen.findByTestId("MenuItemReviewForm-id");
-    
+
       const idField = screen.getByTestId("MenuItemReviewForm-id");
       const itemIdField = screen.getByLabelText("Item Id");
       const reviewerEmailField = screen.getByLabelText("Reviewer Email");
       const starsField = screen.getByLabelText("Stars");
       const commentsField = screen.getByLabelText("Comments");
       const dateReviewedField = screen.getByLabelText("Date Reviewed (in UTC)");
-    
+
       const submitButton = screen.getByText("Update");
-    
+
       expect(idField).toBeInTheDocument();
       expect(idField).toHaveValue(17);
       expect(itemIdField).toHaveValue(6);
@@ -142,22 +149,26 @@ describe("MenuItemReviewsEditPage tests", () => {
       expect(starsField).toHaveValue(3);
       expect(commentsField).toHaveValue("really average");
       expect(dateReviewedField).toHaveValue("2025-01-10T10:34");
-    
+
       fireEvent.change(itemIdField, { target: { value: "7" } });
-      fireEvent.change(reviewerEmailField, { target: { value: "james@gmail.com" } });
+      fireEvent.change(reviewerEmailField, {
+        target: { value: "james@gmail.com" },
+      });
       fireEvent.change(starsField, { target: { value: "1" } });
       fireEvent.change(commentsField, { target: { value: "bad" } });
-      fireEvent.change(dateReviewedField, { target: { value: "2025-12-09T10:00:02" } });
-    
+      fireEvent.change(dateReviewedField, {
+        target: { value: "2025-12-09T10:00:02" },
+      });
+
       fireEvent.click(submitButton);
-    
+
       await waitFor(() => expect(mockToast).toHaveBeenCalled());
-    
+
       expect(mockToast).toHaveBeenCalledWith(
-        "Menu Item Review Updated - id: 17 comments: bad"
+        "Menu Item Review Updated - id: 17 comments: bad",
       );
       expect(mockNavigate).toHaveBeenCalledWith({ to: "/menuItemReviews" });
-    
+
       // Verify the PUT body
       const parsedConfig = JSON.parse(capturedPutConfig.data);
       expect(parsedConfig).toEqual({
@@ -167,7 +178,7 @@ describe("MenuItemReviewsEditPage tests", () => {
         comments: "bad",
         dateReviewed: "2025-12-09T10:00:02.000Z",
       });
-    
+
       // ✅ Mutation-killing line
       expect(capturedPutConfig.params).toEqual({ id: 17 });
     });

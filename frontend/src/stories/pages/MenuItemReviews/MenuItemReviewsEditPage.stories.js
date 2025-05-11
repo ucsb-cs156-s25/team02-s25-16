@@ -26,7 +26,7 @@ Default.parameters = {
         status: 200,
       });
     }),
-    http.get("/api/menuItemReviews", () => {
+    http.get("/api/menuitemreviews", () => {
       return HttpResponse.json(
         menuItemReviewsFixtures.threeMenuItemReviews[0],
         {
@@ -34,12 +34,18 @@ Default.parameters = {
         },
       );
     }),
-    http.put("/api/menuItemReviews", () => {
-      return HttpResponse.json({}, { status: 200 });
-    }),
-    http.put("/api/menuItemReviews", (req) => {
-      window.alert("PUT: " + req.url + " and body: " + req.body);
-      return HttpResponse.json({}, { status: 200 });
+    http.put("/api/menuitemreviews", () => {
+      return HttpResponse.json(
+        {
+          id: 17,
+          itemId: 7,
+          reviewerEmail: "james@gmail.com",
+          stars: 1,
+          comments: "bad",
+          dateReviewed: "2025-12-09T10:00:02Z",
+        },
+        { status: 200 },
+      );
     }),
   ],
 };
