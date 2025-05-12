@@ -29,7 +29,7 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
     url: "/api/ucsborganization",
     method: "PUT",
     params: {
-      id: ucsborganizations.id,
+      id,
     },
     data: {
       orgTranslationShort: ucsborganizations.orgTranslationShort,

@@ -26,7 +26,7 @@ jest.mock("react-router-dom", () => {
     __esModule: true,
     ...originalModule,
     useParams: () => ({
-      orgCode: "ZBT",
+      id: "ZBT",
     }),
     Navigate: (x) => {
       mockNavigate(x);
@@ -49,7 +49,7 @@ describe("UCSBOrganizationsEditPage tests", () => {
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
       axiosMock
-        .onGet("/api/ucsborganization", { params: { orgCode: "ZBT" } })
+        .onGet("/api/ucsborganization", { params: { id: "ZBT" } })
         .timeout();
     });
 
@@ -85,7 +85,7 @@ describe("UCSBOrganizationsEditPage tests", () => {
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
       axiosMock
-        .onGet("/api/ucsborganization", { params: { orgCode: "ZBT" } })
+        .onGet("/api/ucsborganization", { params: { id: "ZBT" } })
         .reply(200, {
           orgCode: "ZBT",
           orgTranslationShort: "ZBT",
@@ -151,7 +151,7 @@ describe("UCSBOrganizationsEditPage tests", () => {
       expect(mockNavigate).toBeCalledWith({ to: "/ucsborganizations" });
 
       expect(axiosMock.history.put.length).toBe(1); // times called
-      expect(axiosMock.history.put[0].params).toEqual({ orgCode: "ZBT" });
+      expect(axiosMock.history.put[0].params).toEqual({ id: "ZBT" });
       expect(axiosMock.history.put[0].data).toBe(
         JSON.stringify({
           // orgCode: "ZBT",
