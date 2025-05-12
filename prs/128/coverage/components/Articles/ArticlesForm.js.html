@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/8</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
                 <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>9/9</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -219,19 +219,7 @@
 <a name='L154'></a><a href='#L154'>154</a>
 <a name='L155'></a><a href='#L155'>155</a>
 <a name='L156'></a><a href='#L156'>156</a>
-<a name='L157'></a><a href='#L157'>157</a>
-<a name='L158'></a><a href='#L158'>158</a>
-<a name='L159'></a><a href='#L159'>159</a>
-<a name='L160'></a><a href='#L160'>160</a>
-<a name='L161'></a><a href='#L161'>161</a>
-<a name='L162'></a><a href='#L162'>162</a>
-<a name='L163'></a><a href='#L163'>163</a>
-<a name='L164'></a><a href='#L164'>164</a>
-<a name='L165'></a><a href='#L165'>165</a>
-<a name='L166'></a><a href='#L166'>166</a>
-<a name='L167'></a><a href='#L167'>167</a>
-<a name='L168'></a><a href='#L168'>168</a>
-<a name='L169'></a><a href='#L169'>169</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L157'></a><a href='#L157'>157</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -244,26 +232,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -402,7 +378,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Form, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 &nbsp;
 function ArticlesForm({
   initialContents,
@@ -413,27 +388,22 @@ function ArticlesForm({
     register,
     formState: { errors },
     handleSubmit,
-    reset,
-  } = useForm();
+  } = useForm({ defaultValues: initialContents || {} });
 &nbsp;
   const navigate = useNavigate();
-  const testIdPrefix = "ArticlesForm";
 &nbsp;
-  useEffect(() =&gt; {
-    if (initialContents) {
-      reset(initialContents);
-    }
-  }, [initialContents, reset]);
+  const isodate_regex =
+    /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
 &nbsp;
   return (
     &lt;Form onSubmit={handleSubmit(submitAction)}&gt;
       &lt;Row&gt;
-        {initialContents ? (
+        {initialContents &amp;&amp; (
           &lt;Col&gt;
             &lt;Form.Group className="mb-3"&gt;
               &lt;Form.Label htmlFor="id"&gt;Id&lt;/Form.Label&gt;
               &lt;Form.Control
-                data-testid={`${testIdPrefix}-id`}
+                data-testid="ArticlesForm-id"
                 id="id"
                 type="text"
                 {...register("id")}
@@ -441,42 +411,37 @@ function ArticlesForm({
               /&gt;
             &lt;/Form.Group&gt;
           &lt;/Col&gt;
-        ) : null}
+        )}
         &lt;Col&gt;
           &lt;Form.Group className="mb-3"&gt;
             &lt;Form.Label htmlFor="title"&gt;Title&lt;/Form.Label&gt;
             &lt;Form.Control
-              data-testid={`${testIdPrefix}-title`}
+              data-testid="ArticlesForm-title"
               id="title"
               type="text"
               isInvalid={Boolean(errors.title)}
               {...register("title", {
-                required: "Title is required.",
-                maxLength: {
-                  value: 100,
-                  message: "Max length is 100 characters.",
-                },
+                required: true,
               })}
             /&gt;
             &lt;Form.Control.Feedback type="invalid"&gt;
-              {errors.title?.message}
+              {errors.title &amp;&amp; "Title is required."}
             &lt;/Form.Control.Feedback&gt;
           &lt;/Form.Group&gt;
         &lt;/Col&gt;
+      &lt;/Row&gt;
+&nbsp;
+      &lt;Row&gt;
         &lt;Col&gt;
           &lt;Form.Group className="mb-3"&gt;
             &lt;Form.Label htmlFor="url"&gt;URL&lt;/Form.Label&gt;
             &lt;Form.Control
-              data-testid={`${testIdPrefix}-url`}
+              data-testid="ArticlesForm-url"
               id="url"
               type="text"
               isInvalid={Boolean(errors.url)}
               {...register("url", {
                 required: "URL is required.",
-                pattern: {
-                  value: /^https?:\/\/[\w\-]+(\.[\w\-]+)+([^\s]+)?$/,
-                  message: "Must be a valid URL (http:// or https://)",
-                },
               })}
             /&gt;
             &lt;Form.Control.Feedback type="invalid"&gt;
@@ -491,7 +456,7 @@ function ArticlesForm({
           &lt;Form.Group className="mb-3"&gt;
             &lt;Form.Label htmlFor="explanation"&gt;Explanation&lt;/Form.Label&gt;
             &lt;Form.Control
-              data-testid={`${testIdPrefix}-explanation`}
+              data-testid="ArticlesForm-explanation"
               id="explanation"
               type="text"
               isInvalid={Boolean(errors.explanation)}
@@ -504,20 +469,19 @@ function ArticlesForm({
             &lt;/Form.Control.Feedback&gt;
           &lt;/Form.Group&gt;
         &lt;/Col&gt;
+      &lt;/Row&gt;
+&nbsp;
+      &lt;Row&gt;
         &lt;Col&gt;
           &lt;Form.Group className="mb-3"&gt;
             &lt;Form.Label htmlFor="email"&gt;Email&lt;/Form.Label&gt;
             &lt;Form.Control
-              data-testid={`${testIdPrefix}-email`}
+              data-testid="ArticlesForm-email"
               id="email"
-              type="email"
+              type="text"
               isInvalid={Boolean(errors.email)}
               {...register("email", {
                 required: "Email is required.",
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                  message: "Must be a valid email address",
-                },
               })}
             /&gt;
             &lt;Form.Control.Feedback type="invalid"&gt;
@@ -525,24 +489,24 @@ function ArticlesForm({
             &lt;/Form.Control.Feedback&gt;
           &lt;/Form.Group&gt;
         &lt;/Col&gt;
+      &lt;/Row&gt;
+&nbsp;
+      &lt;Row&gt;
         &lt;Col&gt;
           &lt;Form.Group className="mb-3"&gt;
-            &lt;Form.Label htmlFor="dateAdded"&gt;Date Added&lt;/Form.Label&gt;
+            &lt;Form.Label htmlFor="dateAdded"&gt;Date Added (iso format)&lt;/Form.Label&gt;
             &lt;Form.Control
-              data-testid={`${testIdPrefix}-dateAdded`}
+              data-testid="ArticlesForm-dateAdded"
               id="dateAdded"
               type="datetime-local"
               isInvalid={Boolean(errors.dateAdded)}
               {...register("dateAdded", {
-                required: "Date Added is required.",
-                pattern: {
-                  value: /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/,
-                  message: "Must be a valid date/time in YYYY-MM-DDTHH:MM format",
-                },
+                required: true,
+                pattern: isodate_regex,
               })}
             /&gt;
             &lt;Form.Control.Feedback type="invalid"&gt;
-              {errors.dateAdded?.message}
+              {errors.dateAdded &amp;&amp; "LocalDateTime is required."}
             &lt;/Form.Control.Feedback&gt;
           &lt;/Form.Group&gt;
         &lt;/Col&gt;
@@ -550,13 +514,13 @@ function ArticlesForm({
 &nbsp;
       &lt;Row&gt;
         &lt;Col&gt;
-          &lt;Button type="submit" data-testid={`${testIdPrefix}-submit`}&gt;
+          &lt;Button type="submit" data-testid="ArticlesForm-submit"&gt;
             {buttonLabel}
           &lt;/Button&gt;
           &lt;Button
             variant="Secondary"
             onClick={() =&gt; navigate(-1)}
-            data-testid={`${testIdPrefix}-cancel`}
+            data-testid="ArticlesForm-cancel"
           &gt;
             Cancel
           &lt;/Button&gt;
@@ -574,7 +538,7 @@ export default ArticlesForm;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-12T08:58:06.940Z
+                at 2025-05-12T09:39:52.100Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
