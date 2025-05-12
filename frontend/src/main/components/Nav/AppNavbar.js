@@ -9,7 +9,8 @@ export default function AppNavbar({
   doLogout,
   currentUrl = window.location.href,
 }) {
-  var oauthLogin = systemInfo?.oauthLogin || "/oauth2/authorization/google";
+  const oauthLogin = systemInfo?.oauthLogin || "/oauth2/authorization/google";
+
   return (
     <>
       {(currentUrl.startsWith("http://localhost:3000") ||
@@ -32,20 +33,12 @@ export default function AppNavbar({
 
           <Nav className="me-auto">
             {systemInfo?.springH2ConsoleEnabled && (
-              <>
-                <Nav.Link href="/h2-console">H2Console</Nav.Link>
-              </>
+              <Nav.Link href="/h2-console">H2Console</Nav.Link>
             )}
             {systemInfo?.showSwaggerUILink && (
-              <>
-                <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
-              </>
+              <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
             )}
           </Nav>
-
-          <>
-            {/* be sure that each NavDropdown has a unique id and data-testid  */}
-          </>
 
           <Navbar.Collapse className="justify-content-between">
             <Nav className="mr-auto">
@@ -58,7 +51,7 @@ export default function AppNavbar({
                   <NavDropdown.Item href="/admin/users">Users</NavDropdown.Item>
                 </NavDropdown>
               )}
-              {currentUser && currentUser.loggedIn ? (
+              {currentUser && currentUser.loggedIn && (
                 <>
                   <Nav.Link as={Link} to="/restaurants">
                     Restaurants
@@ -67,10 +60,19 @@ export default function AppNavbar({
                     UCSB Dates
                   </Nav.Link>
                   <Nav.Link as={Link} to="/ucsborganization">
-                    UCSBOrganization
+                    UCSB Organization
                   </Nav.Link>
                   <Nav.Link as={Link} to="/diningcommonsmenuitem">
-                    UCSB Dining Commons Menu Item
+                    Dining Commons Menu Item
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/ucsbdiningcommonsmenuitem">
+                    UCSB Dining Commons Menu Items
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/recommendationrequests">
+                    Recommendation Requests
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/helprequests">
+                    Help Requests
                   </Nav.Link>
                   <Nav.Link as={Link} to="/placeholder">
                     Placeholder
@@ -79,17 +81,18 @@ export default function AppNavbar({
                     Articles
                   </Nav.Link>
                   <Nav.Link as={Link} to="/recommendationRequest">
-                    Recommendation Request
+                    Recommendation Request (Singular)
                   </Nav.Link>
                   <Nav.Link as={Link} to="/menuitemreview">
                     MenuItemReview
                   </Nav.Link>
                   <Nav.Link as={Link} to="/helprequest">
-                    Help Requests
+                    Help Request (Singular)
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/menuitemreviews">
+                    Menu Item Reviews
                   </Nav.Link>
                 </>
-              ) : (
-                <></>
               )}
             </Nav>
 
