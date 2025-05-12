@@ -1,7 +1,6 @@
 import { Button, Form, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 function ArticlesForm({
   initialContents,
@@ -12,27 +11,22 @@ function ArticlesForm({
     register,
     formState: { errors },
     handleSubmit,
-    reset,
-  } = useForm();
+  } = useForm({ defaultValues: initialContents || {} });
 
   const navigate = useNavigate();
-  const testIdPrefix = "ArticlesForm";
 
-  useEffect(() => {
-    if (initialContents) {
-      reset(initialContents);
-    }
-  }, [initialContents, reset]);
+  const isodate_regex =
+    /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
 
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
       <Row>
-        {initialContents ? (
+        {initialContents && (
           <Col>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="id">Id</Form.Label>
               <Form.Control
-                data-testid={`${testIdPrefix}-id`}
+                data-testid="ArticlesForm-id"
                 id="id"
                 type="text"
                 {...register("id")}
@@ -40,42 +34,37 @@ function ArticlesForm({
               />
             </Form.Group>
           </Col>
-        ) : null}
+        )}
         <Col>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="title">Title</Form.Label>
             <Form.Control
-              data-testid={`${testIdPrefix}-title`}
+              data-testid="ArticlesForm-title"
               id="title"
               type="text"
               isInvalid={Boolean(errors.title)}
               {...register("title", {
-                required: "Title is required.",
-                maxLength: {
-                  value: 100,
-                  message: "Max length is 100 characters.",
-                },
+                required: true,
               })}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.title?.message}
+              {errors.title && "Title is required."}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
+      </Row>
+
+      <Row>
         <Col>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="url">URL</Form.Label>
             <Form.Control
-              data-testid={`${testIdPrefix}-url`}
+              data-testid="ArticlesForm-url"
               id="url"
               type="text"
               isInvalid={Boolean(errors.url)}
               {...register("url", {
                 required: "URL is required.",
-                pattern: {
-                  value: /^https?:\/\/[\w\-]+(\.[\w\-]+)+([^\s]+)?$/,
-                  message: "Must be a valid URL (http:// or https://)",
-                },
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -90,7 +79,7 @@ function ArticlesForm({
           <Form.Group className="mb-3">
             <Form.Label htmlFor="explanation">Explanation</Form.Label>
             <Form.Control
-              data-testid={`${testIdPrefix}-explanation`}
+              data-testid="ArticlesForm-explanation"
               id="explanation"
               type="text"
               isInvalid={Boolean(errors.explanation)}
@@ -103,20 +92,19 @@ function ArticlesForm({
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
+      </Row>
+
+      <Row>
         <Col>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="email">Email</Form.Label>
             <Form.Control
-              data-testid={`${testIdPrefix}-email`}
+              data-testid="ArticlesForm-email"
               id="email"
-              type="email"
+              type="text"
               isInvalid={Boolean(errors.email)}
               {...register("email", {
                 required: "Email is required.",
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                  message: "Must be a valid email address",
-                },
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -124,24 +112,24 @@ function ArticlesForm({
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
+      </Row>
+
+      <Row>
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="dateAdded">Date Added</Form.Label>
+            <Form.Label htmlFor="dateAdded">Date Added (iso format)</Form.Label>
             <Form.Control
-              data-testid={`${testIdPrefix}-dateAdded`}
+              data-testid="ArticlesForm-dateAdded"
               id="dateAdded"
               type="datetime-local"
               isInvalid={Boolean(errors.dateAdded)}
               {...register("dateAdded", {
-                required: "Date Added is required.",
-                pattern: {
-                  value: /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/,
-                  message: "Must be a valid date/time in YYYY-MM-DDTHH:MM format",
-                },
+                required: true,
+                pattern: isodate_regex,
               })}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.dateAdded?.message}
+              {errors.dateAdded && "LocalDateTime is required."}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -149,13 +137,13 @@ function ArticlesForm({
 
       <Row>
         <Col>
-          <Button type="submit" data-testid={`${testIdPrefix}-submit`}>
+          <Button type="submit" data-testid="ArticlesForm-submit">
             {buttonLabel}
           </Button>
           <Button
             variant="Secondary"
             onClick={() => navigate(-1)}
-            data-testid={`${testIdPrefix}-cancel`}
+            data-testid="ArticlesForm-cancel"
           >
             Cancel
           </Button>

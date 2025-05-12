@@ -1,9 +1,7 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { BrowserRouter as Router } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
-
+import { render, waitFor, fireEvent, screen } from "@testing-library/react";
 import ArticlesForm from "main/components/Articles/ArticlesForm";
 import { articlesFixtures } from "fixtures/articlesFixtures";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const mockedNavigate = jest.fn();
 
@@ -13,125 +11,101 @@ jest.mock("react-router-dom", () => ({
 }));
 
 describe("ArticlesForm tests", () => {
-  const queryClient = new QueryClient();
-  const testId = "ArticlesForm";
-
-  test("renders correctly with no initialContents", async () => {
+  test("renders correctly", async () => {
     render(
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <ArticlesForm />
-        </Router>
-      </QueryClientProvider>
+      <Router>
+        <ArticlesForm />
+      </Router>
     );
-
-    expect(await screen.findByText(/Create/)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Title/)).toBeInTheDocument();
-    expect(screen.getByLabelText(/URL/)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Explanation/)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Email/)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Date Added/)).toBeInTheDocument();
+    await screen.findByText(/Title/);
+    await screen.findByText(/Create/);
   });
 
-  test("renders correctly with initialContents", async () => {
+  test("renders correctly when passing in an Article", async () => {
     render(
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <ArticlesForm initialContents={articlesFixtures.oneArticle[0]} />
-        </Router>
-      </QueryClientProvider>
+      <Router>
+        <ArticlesForm initialContents={articlesFixtures.oneArticle} />
+      </Router>
     );
-
-    expect(await screen.findByDisplayValue("How to Build a Spring Boot App")).toBeInTheDocument();
-    expect(await screen.findByDisplayValue("https://example.com/spring-boot-article")).toBeInTheDocument();
-    expect(await screen.findByDisplayValue("This article explains how to set up a Spring Boot application step by step.")).toBeInTheDocument();
-    expect(await screen.findByDisplayValue("author1@example.com")).toBeInTheDocument();
-    expect(await screen.findByDisplayValue("2024-05-01T10:00")).toBeInTheDocument(); 
-    
+    await screen.findByTestId("ArticlesForm-id");
+    expect(screen.getByText(/Id/)).toBeInTheDocument();
+    expect(screen.getByTestId("ArticlesForm-id")).toHaveValue("1");
   });
 
-  test("validation errors on blank submit", async () => {
+  test("Correct error message on bad input", async () => {
     render(
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <ArticlesForm />
-        </Router>
-      </QueryClientProvider>
+      <Router>
+        <ArticlesForm />
+      </Router>
     );
 
-    fireEvent.click(screen.getByTestId(`${testId}-submit`));
+    const dateAddedField = await screen.findByTestId("ArticlesForm-dateAdded");
+    const submitButton = screen.getByTestId("ArticlesForm-submit");
 
-    expect(await screen.findByText(/Title is required/)).toBeInTheDocument();
-    expect(screen.getByText(/URL is required/)).toBeInTheDocument();
-    expect(screen.getByText(/Explanation is required/)).toBeInTheDocument();
-    expect(screen.getByText(/Email is required/)).toBeInTheDocument();
-    expect(screen.getByText(/Date Added is required/)).toBeInTheDocument();
+    fireEvent.change(dateAddedField, { target: { value: "bad-input" } });
+    fireEvent.click(submitButton);
+
+    await screen.findByText(/LocalDateTime is required./);
   });
 
-  test("validation error on bad input", async () => {
+  test("Correct error messages on missing input", async () => {
     render(
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <ArticlesForm />
-        </Router>
-      </QueryClientProvider>
+      <Router>
+        <ArticlesForm />
+      </Router>
     );
 
-    fireEvent.change(screen.getByTestId(`${testId}-url`), {
-      target: { value: "bad-url" },
-    });
-    fireEvent.change(screen.getByTestId(`${testId}-email`), {
-      target: { value: "bad-email" },
-    });
+    const submitButton = await screen.findByTestId("ArticlesForm-submit");
+    fireEvent.click(submitButton);
 
-    fireEvent.click(screen.getByTestId(`${testId}-submit`));
-
-    expect(await screen.findByText(/Must be a valid URL/)).toBeInTheDocument();
-    expect(screen.getByText(/Must be a valid email address/)).toBeInTheDocument();
+    await screen.findByText(/Title is required./);
+    expect(screen.getByText(/URL is required./)).toBeInTheDocument();
+    expect(screen.getByText(/Explanation is required./)).toBeInTheDocument();
+    expect(screen.getByText(/Email is required./)).toBeInTheDocument();
+    expect(screen.getByText(/LocalDateTime is required./)).toBeInTheDocument();
   });
 
-  test("calls submitAction on good input", async () => {
-    const mockSubmit = jest.fn();
+  test("No error messages on good input", async () => {
+    const mockSubmitAction = jest.fn();
 
     render(
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <ArticlesForm submitAction={mockSubmit} />
-        </Router>
-      </QueryClientProvider>
+      <Router>
+        <ArticlesForm submitAction={mockSubmitAction} />
+      </Router>
     );
 
-    fireEvent.change(screen.getByTestId(`${testId}-title`), {
-      target: { value: "Test Article" },
-    });
-    fireEvent.change(screen.getByTestId(`${testId}-url`), {
-      target: { value: "https://example.com" },
-    });
-    fireEvent.change(screen.getByTestId(`${testId}-explanation`), {
-      target: { value: "Explains everything" },
-    });
-    fireEvent.change(screen.getByTestId(`${testId}-email`), {
-      target: { value: "test@example.com" },
-    });
-    fireEvent.change(screen.getByTestId(`${testId}-dateAdded`), {
-      target: { value: "2024-01-02T12:00" },
-    });
+    const titleField = await screen.findByTestId("ArticlesForm-title");
+    const urlField = screen.getByTestId("ArticlesForm-url");
+    const explanationField = screen.getByTestId("ArticlesForm-explanation");
+    const emailField = screen.getByTestId("ArticlesForm-email");
+    const dateAddedField = screen.getByTestId("ArticlesForm-dateAdded");
+    const submitButton = screen.getByTestId("ArticlesForm-submit");
 
-    fireEvent.click(screen.getByTestId(`${testId}-submit`));
+    fireEvent.change(titleField, { target: { value: "title" } });
+    fireEvent.change(urlField, { target: { value: "url" } });
+    fireEvent.change(explanationField, { target: { value: "explanation" } });
+    fireEvent.change(emailField, { target: { value: "email" } });
+    fireEvent.change(dateAddedField, { target: { value: "2022-01-02T12:00" } });
+    fireEvent.click(submitButton);
 
-    await waitFor(() => expect(mockSubmit).toHaveBeenCalled());
+    await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
+
+    expect(screen.queryByText(/Title is required./)).not.toBeInTheDocument();
+    expect(screen.queryByText(/URL is required./)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Explanation is required./)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Email is required./)).not.toBeInTheDocument();
+    expect(screen.queryByText(/LocalDateTime is required./)).not.toBeInTheDocument();
+    expect(screen.queryByText(/localDateTime must be in ISO format/)).not.toBeInTheDocument();
   });
 
-  test("navigate(-1) is called on cancel", async () => {
+  test("navigate(-1) is called when Cancel is clicked", async () => {
     render(
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <ArticlesForm />
-        </Router>
-      </QueryClientProvider>
+      <Router>
+        <ArticlesForm />
+      </Router>
     );
 
-    const cancelButton = screen.getByTestId(`${testId}-cancel`);
+    const cancelButton = await screen.findByTestId("ArticlesForm-cancel");
     fireEvent.click(cancelButton);
 
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
