@@ -53,6 +53,33 @@ export default function AppNavbar({
               )}
               {currentUser && currentUser.loggedIn && (
                 <>
+                  <Nav.Link as={Link} to="/articles">
+                    Articles
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/diningcommonsmenuitem">
+                    Dining Commons Menu Item
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/helprequest">
+                    Help Request (Singular)
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/helprequests">
+                    Help Requests
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/menuitemreview">
+                    MenuItemReview
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/menuitemreviews">
+                    Menu Item Reviews
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/placeholder">
+                    Placeholder
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/recommendationRequest">
+                    Recommendation Request (Singular)
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/recommendationrequests">
+                    Recommendation Requests
+                  </Nav.Link>
                   <Nav.Link as={Link} to="/restaurants">
                     Restaurants
                   </Nav.Link>
@@ -62,35 +89,8 @@ export default function AppNavbar({
                   <Nav.Link as={Link} to="/ucsborganization">
                     UCSB Organization
                   </Nav.Link>
-                  <Nav.Link as={Link} to="/diningcommonsmenuitem">
-                    Dining Commons Menu Item
-                  </Nav.Link>
                   <Nav.Link as={Link} to="/ucsbdiningcommonsmenuitem">
                     UCSB Dining Commons Menu Items
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/recommendationrequests">
-                    Recommendation Requests
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/helprequests">
-                    Help Requests
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/placeholder">
-                    Placeholder
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/articles">
-                    Articles
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/recommendationRequest">
-                    Recommendation Request (Singular)
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/menuitemreview">
-                    MenuItemReview
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/helprequest">
-                    Help Request (Singular)
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/menuitemreviews">
-                    Menu Item Reviews
                   </Nav.Link>
                 </>
               )}
