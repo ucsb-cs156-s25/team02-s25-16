@@ -277,11 +277,12 @@
           </dependency>
         </dependencies>
         <configuration>
-
-        <outputDirectory>${project.build.directory}/pit-reports</outputDirectory>
-        <historyInputFile>target/pit-history/history.bin</historyInputFile>
-        <historyOutputFile>target/pit-history/history.bin</historyOutputFile>
-  
+          <historyInputFile>
+            target/pit-history/history.bin
+          </historyInputFile>
+          <historyOutputFile>
+            target/pit-history/history.bin
+          </historyOutputFile>
           <verbose>true</verbose>
           <targetClasses>
             <param>${targetClasses}</param>
