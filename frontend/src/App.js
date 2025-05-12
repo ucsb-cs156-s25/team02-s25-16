@@ -11,7 +11,7 @@ import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
 
 import UCSBOrganizationsEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationsEditPage";
 import UCSBOrganizationsCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationsCreatePage";
-
+import UCSBOrganizationsIndexPage from "main/pages/UCSBOrganizations/UCSBOrganizationsIndexPage";
 // import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 // import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
 // import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
@@ -57,6 +57,11 @@ function App() {
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
+          <Route
+            exact
+            path="/ucsborganizations"
+            element={<UCSBOrganizationsIndexPage />}
+            />
             <Route
               exact
               path="/ucsborganizations/edit/:id"
