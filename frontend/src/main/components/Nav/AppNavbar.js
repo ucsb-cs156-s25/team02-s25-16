@@ -32,7 +32,7 @@ export default function AppNavbar({
 
           <Navbar.Toggle />
 
-          {/* Left-side utility links */}
+          {/* Utility links (left) */}
           <Nav className="me-auto">
             {systemInfo?.springH2ConsoleEnabled && (
               <Nav.Link href="/h2-console">H2Console</Nav.Link>
@@ -74,7 +74,7 @@ export default function AppNavbar({
               )}
             </Nav>
 
-            {/* Right-side auth */}
+            {/* Auth (right) */}
             <Nav className="ml-auto">
               {currentUser?.loggedIn ? (
                 <>
