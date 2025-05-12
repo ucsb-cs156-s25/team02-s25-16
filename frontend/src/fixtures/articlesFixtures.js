@@ -1,43 +1,38 @@
 const articlesFixtures = {
-  oneArticle: [
-    {
-      id: 1,
-      title: "How to Build a Spring Boot App",
-      url: "https://example.com/spring-boot-article",
-      explanation:
-        "This article explains how to set up a Spring Boot application step by step.",
-      email: "author1@example.com",
-      dateAdded: "2024-05-01T10:00:00",
-    },
-  ],
-
+  oneArticle: {
+    id: 1,
+    title: "UCSB Computer Science Department",
+    url: "https://www.cs.ucsb.edu",
+    explanation:
+      "The official website of the UCSB Computer Science Department.",
+    email: "gaucho@gmail.com",
+    dateAdded: "2021-10-01T12:00:00",
+  },
   threeArticles: [
     {
       id: 1,
-      title: "How to Build a Spring Boot App",
-      url: "https://example.com/spring-boot-article",
+      title: "UCSB Computer Science Department",
+      url: "https://www.cs.ucsb.edu",
       explanation:
-        "This article explains how to set up a Spring Boot application step by step.",
-      email: "author1@example.com",
-      dateAdded: "2024-05-01T10:00:00",
+        "The official website of the UCSB Computer Science Department.",
+      email: "gaucho@gmail.com",
+      dateAdded: "2021-10-01T12:00:00",
     },
     {
       id: 2,
-      title: "Understanding JPA Entities",
-      url: "https://example.com/jpa-entities",
-      explanation:
-        "This article covers how JPA entities work in Java and how to map them to database tables.",
-      email: "author2@example.com",
-      dateAdded: "2024-05-02T11:30:00",
+      title: "google",
+      url: "https://www.google.com",
+      explanation: "The official website of Google.",
+      email: "google@gmail.com",
+      dateAdded: "2021-10-02T12:00:00",
     },
     {
       id: 3,
-      title: "Mastering Lombok in Java",
-      url: "https://example.com/lombok-guide",
-      explanation:
-        "A detailed guide on using Lombok annotations to reduce boilerplate code in Java projects.",
-      email: "author3@example.com",
-      dateAdded: "2024-05-03T14:15:00",
+      title: "rohan is funny",
+      url: "https://rohan.com",
+      explanation: "rohan is funny",
+      email: "rohan@gmail.com",
+      dateAdded: "2021-10-03T12:00:00",
     },
   ],
 };
