@@ -40,7 +40,7 @@ public class UCSBOrganizationController extends ApiController {
 
     @Autowired
     UCSBOrganizationRepository ucsbOrganizationRepository;
-
+    
     /**
      * List all UCSB Organizations
      * 

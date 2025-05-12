@@ -6,63 +6,68 @@ import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
 export default function UCSBOrganizationEditPage({ storybook = false }) {
-  let { orgCode } = useParams();
-  
-  // First, we need to get the organization by orgCode
+  let { id } = useParams();
+
   const {
-    data: ucsborganization,
-    error,
-    status
+    data: ucsborganizations,
+    _error,
+    _status,
   } = useBackend(
-    [`/api/ucsborganization?orgCode=${orgCode}`],
+    // Stryker disable next-line all : don't test internal caching of React Query
+    [`/api/ucsborganization?id=${id}`],
     {
+      // Stryker disable next-line all : GET is the default, so mutating this to "" doesn't introduce a bug
       method: "GET",
-      url: "/api/ucsborganization",
+      url: `/api/ucsborganization`,
       params: {
-        orgCode: orgCode
-      }
-    }
+        id,
+      },
+    },
   );
-  
-  // Once we have the organization, including its ID, we can update it
-  const objectToAxiosPutParams = (ucsborganization) => ({
+
+  const objectToAxiosPutParams = (ucsborganizations) => ({
     url: "/api/ucsborganization",
     method: "PUT",
     params: {
-      id: ucsborganization.id  // Use the numeric ID from the fetched data
+      id,
     },
-    data: ucsborganization  // Send the complete object
+    data: {
+      orgTranslationShort: ucsborganizations.orgTranslationShort,
+      orgTranslation: ucsborganizations.orgTranslation,
+      inactive: ucsborganizations.inactive,
+    },
   });
-  
-  const onSuccess = (ucsborganization) => {
-    toast(`UCSBOrganization Updated - orgCode: ${ucsborganization.orgCode}`);
+
+  const onSuccess = (ucsborganizations) => {
+    toast(`UCSBOrganization Updated - orgCode: ${ucsborganizations.orgCode}`);
   };
-  
+
   const mutation = useBackendMutation(
     objectToAxiosPutParams,
     { onSuccess },
-    ["/api/ucsborganization/all"]  // Make this key stale to trigger a reload
+    // Stryker disable next-line all : hard to set up test for caching
+    [`/api/ucsborganization?id=${id}`],
   );
-  
+
   const { isSuccess } = mutation;
-  
+
   const onSubmit = async (data) => {
     mutation.mutate(data);
   };
-  
+
   if (isSuccess && !storybook) {
     return <Navigate to="/ucsborganizations" />;
   }
-  
+
   return (
     <BasicLayout>
       <div className="pt-2">
         <h1>Edit UCSBOrganization</h1>
-        {ucsborganization && (
+        {ucsborganizations && (
           <UCSBOrganizationForm
             submitAction={onSubmit}
             buttonLabel={"Update"}
-            initialContents={ucsborganization}
+            initialContents={ucsborganizations}
           />
         )}
       </div>
