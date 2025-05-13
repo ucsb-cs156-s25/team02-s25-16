@@ -9,15 +9,13 @@ export default function AppNavbar({
   doLogout,
   currentUrl = window.location.href,
 }) {
-  const oauthLogin = systemInfo?.oauthLogin || "/oauth2/authorization/google";
-
+  var oauthLogin = systemInfo?.oauthLogin || "/oauth2/authorization/google";
   return (
     <>
       {(currentUrl.startsWith("http://localhost:3000") ||
         currentUrl.startsWith("http://127.0.0.1:3000")) && (
         <AppNavbarLocalhost url={currentUrl} />
       )}
-
       <Navbar
         expand="xl"
         variant="dark"
@@ -32,18 +30,24 @@ export default function AppNavbar({
 
           <Navbar.Toggle />
 
-          {/* Utility links (left) */}
           <Nav className="me-auto">
             {systemInfo?.springH2ConsoleEnabled && (
-              <Nav.Link href="/h2-console">H2Console</Nav.Link>
+              <>
+                <Nav.Link href="/h2-console">H2Console</Nav.Link>
+              </>
             )}
             {systemInfo?.showSwaggerUILink && (
-              <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
+              <>
+                <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
+              </>
             )}
           </Nav>
 
+          <>
+            {/* be sure that each NavDropdown has a unique id and data-testid  */}
+          </>
+
           <Navbar.Collapse className="justify-content-between">
-            {/* Main navigation */}
             <Nav className="mr-auto">
               {hasRole(currentUser, "ROLE_ADMIN") && (
                 <NavDropdown
@@ -54,37 +58,33 @@ export default function AppNavbar({
                   <NavDropdown.Item href="/admin/users">Users</NavDropdown.Item>
                 </NavDropdown>
               )}
-
-              {currentUser?.loggedIn && (
+              {currentUser && currentUser.loggedIn ? (
                 <>
-                  <Nav.Link as={Link} to="/articles">Articles</Nav.Link>
-                  <Nav.Link as={Link} to="/diningcommonsmenuitem">Dining Commons Menu Item</Nav.Link>
-                  <Nav.Link as={Link} to="/helprequest">Help Request</Nav.Link>
-                  <Nav.Link as={Link} to="/helprequests">Help Requests</Nav.Link>
-                  <Nav.Link as={Link} to="/menuitemreview">MenuItemReview</Nav.Link>
-                  <Nav.Link as={Link} to="/menuitemreviews">Menu Item Reviews</Nav.Link>
-                  <Nav.Link as={Link} to="/placeholder">Placeholder</Nav.Link>
-                  <Nav.Link as={Link} to="/recommendationRequest">Recommendation Request</Nav.Link>
-                  <Nav.Link as={Link} to="/recommendationrequests">Recommendation Requests</Nav.Link>
-                  <Nav.Link as={Link} to="/restaurants">Restaurants</Nav.Link>
-                  <Nav.Link as={Link} to="/ucsbdates">UCSB Dates</Nav.Link>
-                  <Nav.Link as={Link} to="/ucsborganization">UCSB Organization</Nav.Link>
-                  <Nav.Link as={Link} to="/ucsbdiningcommonsmenuitem">UCSB Dining Commons Menu Items</Nav.Link>
+                  <Nav.Link as={Link} to="/restaurants">
+                    Restaurants
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/ucsbdates">
+                    UCSB Dates
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/placeholder">
+                    Placeholder
+                  </Nav.Link>
                 </>
+              ) : (
+                <></>
               )}
             </Nav>
 
-            {/* Auth (right) */}
             <Nav className="ml-auto">
-              {currentUser?.loggedIn ? (
+              {currentUser && currentUser.loggedIn ? (
                 <>
                   <Navbar.Text className="me-3" as={Link} to="/profile">
-                    Welcome,&nbsp;{currentUser.root.user.email}
+                    Welcome, {currentUser.root.user.email}
                   </Navbar.Text>
-                  <Button onClick={doLogout}>Log&nbsp;Out</Button>
+                  <Button onClick={doLogout}>Log Out</Button>
                 </>
               ) : (
-                <Button href={oauthLogin}>Log&nbsp;In</Button>
+                <Button href={oauthLogin}>Log In</Button>
               )}
             </Nav>
           </Navbar.Collapse>
