@@ -1,34 +1,30 @@
-const ucsborganizationFixtures = {
+const ucsbOrganizationFixtures = {
   oneOrganization: {
-    id: 1,
-    orgCode: "ZBT",
-    orgTranslationShort: "ZBT",
-    orgTranslation: "Zeta Beta Tau",
-    inactive: false,
+    orgCode: "APA",
+    orgTranslationShort: "Alpha Phi Aloha",
+    orgTranslation: "Alpha Phi Alpha",
+    inactive: true,
   },
-  threeUCSBOrganization: [
+  threeOrganization: [
     {
-      id: 1,
-      orgCode: "ZBT",
-      orgTranslationShort: "ZBT",
-      orgTranslation: "Zeta Beta Tau",
-      inactive: false,
+      orgCode: "SKY",
+      orgTranslationShort: "skydive",
+      orgTranslation: "skydiving",
+      inactive: true,
     },
     {
-      id: 2,
-      orgCode: "LOS",
-      orgTranslationShort: "LI",
-      orgTranslation: "Los Ingenieros",
-      inactive: false,
+      orgCode: "APA",
+      orgTranslationShort: "Alpha Phi Aloha",
+      orgTranslation: "Alpha Phi Alpha",
+      inactive: true,
     },
     {
-      id: 3,
-      orgCode: "DTD",
-      orgTranslationShort: "Delta",
-      orgTranslation: "Delta Tau Delta",
+      orgCode: "ZPR",
+      orgTranslationShort: "Zeta Phi Rho",
+      orgTranslation: "Zeta Phi Rho",
       inactive: false,
     },
   ],
 };
 
-export { ucsborganizationFixtures };
+export { ucsbOrganizationFixtures };

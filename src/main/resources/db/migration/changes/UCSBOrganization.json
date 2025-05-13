@@ -1,9 +1,8 @@
-{
-    "databaseChangeLog": [
-      {
+{"databaseChangeLog": [
+    {
         "changeSet": {
           "id": "UCSBOrganization-1",
-          "author": "johnhagedorncs",
+          "author": "bensoo777",
           "preConditions": [
             {
               "onFail": "MARK_RAN"
@@ -12,7 +11,7 @@
               "not": [
                 {
                   "tableExists": {
-                    "tableName": "UCSBORGANIZATION"
+                    "tableName": "UCSBORGANIZATIONS"
                   }
                 }
               ]
@@ -24,45 +23,46 @@
                 "columns": [
                   {
                     "column": {
-                      "autoIncrement": true,
                       "constraints": {
                         "primaryKey": true,
-                        "primaryKeyName": "UCSBORGANIZATION_PK"
+                        "primaryKeyName": "UCSBORGANIZATIONS_PK"
                       },
-                      "name": "ID",
-                      "type": "BIGINT"
-                    }
-                  },
-                  {
-                    "column": {
                       "name": "ORG_CODE",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
                     "column": {
+                      "constraints": {
+                        "nullable": false
+                      },
                       "name": "ORG_TRANSLATION_SHORT",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
                     "column": {
+                      "constraints": {
+                        "nullable": false
+                      },
                       "name": "ORG_TRANSLATION",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
                     "column": {
+                      "constraints": {
+                        "nullable": false
+                      },
                       "name": "INACTIVE",
                       "type": "BOOLEAN"
                     }
-                  }
-                ],
-                "tableName": "UCSBORGANIZATION"
+                  }]
+                ,
+                "tableName": "UCSBORGANIZATIONS"
               }
-            }
-          ]
+            }]
+
         }
-      }
-    ]
-  }
+    }
+]}

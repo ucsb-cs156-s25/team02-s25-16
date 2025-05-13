@@ -29,7 +29,7 @@ function UCSBOrganizationForm({
           type="text"
           isInvalid={Boolean(errors.orgCode)}
           {...register("orgCode", {
-            required: "OrgCode is required.",
+            required: "orgcode is required.",
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -47,7 +47,7 @@ function UCSBOrganizationForm({
           type="text"
           isInvalid={Boolean(errors.orgTranslationShort)}
           {...register("orgTranslationShort", {
-            required: "OrgTranslationShort is required.",
+            required: "orgtranslationshort is required.",
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -63,7 +63,7 @@ function UCSBOrganizationForm({
           type="text"
           isInvalid={Boolean(errors.orgTranslation)}
           {...register("orgTranslation", {
-            required: "OrgTranslation is required.",
+            required: "orgtranslation is required.",
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -79,7 +79,7 @@ function UCSBOrganizationForm({
           as="select"
           isInvalid={Boolean(errors.inactive)}
           {...register("inactive", {
-            required: "Inactive is required.",
+            required: "inactive is required.",
           })}
         >
           <option value="">---</option>
