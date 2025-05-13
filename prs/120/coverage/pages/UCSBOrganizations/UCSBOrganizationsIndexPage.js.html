@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -122,23 +122,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -146,11 +136,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,45 +167,45 @@
 import { useBackend } from "main/utils/useBackend";
 &nbsp;
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import UCSBOrganizationTable from "main/components/UCSBOrganizations/UCSBOrganizationTable";
+import UCSBOrganizationsTable from "main/components/UCSBOrganizations/UCSBOrganizationTable";
 import { useCurrentUser, hasRole } from "main/utils/currentUser";
 import { Button } from "react-bootstrap";
 &nbsp;
-export default function UCSBOrganizationIndexPage() {
-  const currentUser = useCurrentUser();
+export default function <span class="fstat-no" title="function not covered" >UCSBOrganizationsIndexPage(</span>) {
+  const currentUser = <span class="cstat-no" title="statement not covered" >useCurrentUser();</span>
 &nbsp;
   const {
     data: ucsborganizations,
     error: _error,
     status: _status,
-  } = useBackend(
+  } = <span class="cstat-no" title="statement not covered" >useBackend(</span>
     // Stryker disable next-line all : don't test internal caching of React Query
-    ["/api/ucsborganization/all"],
-    { method: "GET", url: "/api/ucsborganization/all" },
+    ["/api/ucsborganizations/all"],
+    { method: "GET", url: "/api/ucsborganizations/all" },
     // Stryker disable next-line all : don't test default value of empty list
     [],
   );
 &nbsp;
-  const createButton = () =&gt; {
-    if (hasRole(currentUser, "ROLE_ADMIN")) {
-      return (
+  const createButton = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (hasRole(currentUser, "ROLE_ADMIN")) {</span>
+<span class="cstat-no" title="statement not covered" >      return (</span>
         &lt;Button
           variant="primary"
           href="/ucsborganizations/create"
           style={{ float: "right" }}
         &gt;
-          Create ucsborganizations
+          Create Organization
         &lt;/Button&gt;
       );
     }
   };
 &nbsp;
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;BasicLayout&gt;
       &lt;div className="pt-2"&gt;
         {createButton()}
-        &lt;h1&gt;UCSBOrganization&lt;/h1&gt;
-        &lt;UCSBOrganizationTable
+        &lt;h1&gt;UCSB Organizations&lt;/h1&gt;
+        &lt;UCSBOrganizationsTable
           ucsborganizations={ucsborganizations}
           currentUser={currentUser}
         /&gt;
@@ -220,7 +220,7 @@ export default function UCSBOrganizationIndexPage() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-12T17:45:21.978Z
+                at 2025-05-13T00:04:12.281Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
