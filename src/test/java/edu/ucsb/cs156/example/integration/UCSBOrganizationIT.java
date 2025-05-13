@@ -69,7 +69,7 @@ public class UCSBOrganizationIT {
                 ucsbOrganizationRepository.save(ucsbOrganizations);
 
                 // act
-                MvcResult response = mockMvc.perform(get("/api/ucsborganizations?orgCode=ZPR"))
+                MvcResult response = mockMvc.perform(get("/api/ucsborganizations?code=ZPR"))
                                 .andExpect(status().isOk()).andReturn();
 
                 // assert

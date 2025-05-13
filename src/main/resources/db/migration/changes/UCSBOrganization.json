@@ -2,7 +2,7 @@
     {
         "changeSet": {
           "id": "UCSBOrganization-1",
-          "author": "bensoo777",
+          "author": "johnhagedorncs",
           "preConditions": [
             {
               "onFail": "MARK_RAN"
