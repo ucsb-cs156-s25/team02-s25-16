@@ -2,6 +2,7 @@ import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost";
+
 export default function AppNavbar({
   currentUser,
   systemInfo,
@@ -26,7 +27,9 @@ export default function AppNavbar({
           <Navbar.Brand as={Link} to="/">
             Example
           </Navbar.Brand>
+
           <Navbar.Toggle />
+
           <Nav className="me-auto">
             {systemInfo?.springH2ConsoleEnabled && (
               <>
@@ -39,9 +42,11 @@ export default function AppNavbar({
               </>
             )}
           </Nav>
+
           <>
             {/* be sure that each NavDropdown has a unique id and data-testid  */}
           </>
+
           <Navbar.Collapse className="justify-content-between">
             <Nav className="mr-auto">
               {hasRole(currentUser, "ROLE_ADMIN") && (
@@ -61,11 +66,9 @@ export default function AppNavbar({
                   <Nav.Link as={Link} to="/ucsbdates">
                     UCSB Dates
                   </Nav.Link>
-                  <Nav.Link as={Link} to="/placeholder">
-                    Placeholder
-                  </Nav.Link>
                   <Nav.Link as={Link} to="/ucsborganizations">
                     UCSB Organizations
+                  </Nav.Link>
                   <Nav.Link as={Link} to="/articles">
                     Articles
                   </Nav.Link>
@@ -89,6 +92,7 @@ export default function AppNavbar({
                 <></>
               )}
             </Nav>
+
             <Nav className="ml-auto">
               {currentUser && currentUser.loggedIn ? (
                 <>
