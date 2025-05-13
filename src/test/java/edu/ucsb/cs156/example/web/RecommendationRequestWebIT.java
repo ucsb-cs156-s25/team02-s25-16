@@ -28,7 +28,7 @@ public class RecommendationRequestWebIT extends WebTestCase {
         page.waitForSelector("nav");
 
         // Click on the recommendation requests link - use full exact text as seen in AppNavbar.js
-        page.getByText("Recommendation Request", new Page.GetByTextOptions().setExact(true)).click();
+        page.getByText("Recommendation Requests", new Page.GetByTextOptions().setExact(true)).click();
 
         // Click the create button
         page.getByText("Create RecommendationRequest").click();
