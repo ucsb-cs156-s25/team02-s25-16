@@ -1,24 +1,24 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import UCSBOrganizationForm from "main/components/UCSBOrganizations/UCSBOrganizationForm";
+import UCSBOrganizationsForm from "main/components/UCSBOrganizations/UCSBOrganizationForm";
 import { Navigate } from "react-router-dom";
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function UCSBOrganizationCreatePage({ storybook = false }) {
-  const objectToAxiosParams = (ucsbOrganizations) => ({
-    url: "/api/ucsborganization/post",
+export default function UCSBOrganizationsCreatePage({ storybook = false }) {
+  const objectToAxiosParams = (ucsborganization) => ({
+    url: "/api/ucsborganizations/post",
     method: "POST",
     params: {
-      orgCode: ucsbOrganizations.orgCode,
-      orgTranslationShort: ucsbOrganizations.orgTranslationShort,
-      orgTranslation: ucsbOrganizations.orgTranslation,
-      inactive: ucsbOrganizations.inactive,
+      orgCode: ucsborganization.orgCode,
+      orgTranslationShort: ucsborganization.orgTranslationShort,
+      orgTranslation: ucsborganization.orgTranslation,
+      inactive: ucsborganization.inactive,
     },
   });
 
-  const onSuccess = (ucsbOrganizations) => {
+  const onSuccess = (ucsborganization) => {
     toast(
-      `New UCSBOrganization Created - OrgCode: ${ucsbOrganizations.orgCode}`,
+      `New organization Created - id: ${ucsborganization.id} orgCode: ${ucsborganization.orgCode}`,
     );
   };
 
@@ -42,8 +42,8 @@ export default function UCSBOrganizationCreatePage({ storybook = false }) {
   return (
     <BasicLayout>
       <div className="pt-2">
-        <h1>Create New Organization</h1>
-        <UCSBOrganizationForm submitAction={onSubmit} />
+        <h1>Create New UCSB Organization</h1>
+        <UCSBOrganizationsForm submitAction={onSubmit} />
       </div>
     </BasicLayout>
   );

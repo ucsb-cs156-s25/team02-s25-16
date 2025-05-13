@@ -26,7 +26,7 @@ jest.mock("react-router-dom", () => {
     __esModule: true,
     ...originalModule,
     useParams: () => ({
-      id: "ZBT",
+      id: "SKY",
     }),
     Navigate: (x) => {
       mockNavigate(x);
@@ -49,12 +49,12 @@ describe("UCSBOrganizationsEditPage tests", () => {
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
       axiosMock
-        .onGet("/api/ucsborganization", { params: { id: "ZBT" } })
+        .onGet("/api/ucsborganizations", { params: { code: "SKY" } })
         .timeout();
     });
 
     const queryClient = new QueryClient();
-    test("renders header but table is not present", async () => {
+    test("renders header but form is not present", async () => {
       const restoreConsole = mockConsole();
 
       render(
@@ -64,9 +64,9 @@ describe("UCSBOrganizationsEditPage tests", () => {
           </MemoryRouter>
         </QueryClientProvider>,
       );
-      await screen.findByText("Edit UCSBOrganization");
+      await screen.findByText("Edit Organization");
       expect(
-        screen.queryByTestId("UCSBOrganizations-orgCode"),
+        screen.queryByTestId("UCSBOrganizationForm-orgCode"),
       ).not.toBeInTheDocument();
       restoreConsole();
     });
@@ -78,25 +78,31 @@ describe("UCSBOrganizationsEditPage tests", () => {
     beforeEach(() => {
       axiosMock.reset();
       axiosMock.resetHistory();
+
+      // Load the page first
       axiosMock
         .onGet("/api/currentUser")
         .reply(200, apiCurrentUserFixtures.userOnly);
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
+
+      // Mock the specific API call
       axiosMock
-        .onGet("/api/ucsborganization", { params: { id: "ZBT" } })
+        .onGet("/api/ucsborganizations", { params: { code: "SKY" } })
         .reply(200, {
-          orgCode: "ZBT",
-          orgTranslationShort: "ZBT",
-          orgTranslation: "Zeta Beta Tau",
-          inactive: false,
+          orgCode: "SKY",
+          orgTranslationShort: "skydive",
+          orgTranslation: "skydiving",
+          inactive: true,
         });
-      axiosMock.onPut("/api/ucsborganization").reply(200, {
-        orgCode: "ZBT",
-        orgTranslationShort: "ZBT",
-        orgTranslation: "Zeta Beta Tau",
-        inactive: false,
+
+      // The PUT request needs to be set up for success
+      axiosMock.onPut("/api/ucsborganizations").reply(200, {
+        orgCode: "SKY1",
+        orgTranslationShort: "skydive1",
+        orgTranslation: "skydiving1",
+        inactive: "false",
       });
     });
 
@@ -114,49 +120,54 @@ describe("UCSBOrganizationsEditPage tests", () => {
       await screen.findByTestId("UCSBOrganizationForm-orgCode");
 
       const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
-      const orgTranslationShortField = screen.getByTestId(
-        "UCSBOrganizationForm-orgTranslationShort",
+      const orgTranslationShortField = screen.getByLabelText(
+        "OrgTranslationShort",
       );
-      const orgTranslationField = screen.getByTestId(
-        "UCSBOrganizationForm-orgTranslation",
-      );
-      const inactiveField = screen.getByTestId("UCSBOrganizationForm-inactive");
-      const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
+      const orgTranslationField = screen.getByLabelText("OrgTranslation");
+      const inactiveField = screen.getByLabelText("Inactive");
+
+      const submitButton = screen.getByText("Update");
 
       expect(orgCodeField).toBeInTheDocument();
-      expect(orgCodeField).toHaveValue("ZBT");
+      expect(orgCodeField).toHaveValue("SKY");
       expect(orgTranslationShortField).toBeInTheDocument();
-      expect(orgTranslationShortField).toHaveValue("ZBT");
+      expect(orgTranslationShortField).toHaveValue("skydive");
       expect(orgTranslationField).toBeInTheDocument();
-      expect(orgTranslationField).toHaveValue("Zeta Beta Tau");
+      expect(orgTranslationField).toHaveValue("skydiving");
       expect(inactiveField).toBeInTheDocument();
-      expect(inactiveField).toHaveValue("false");
+      expect(inactiveField).toHaveValue("true");
 
       expect(submitButton).toHaveTextContent("Update");
 
+      fireEvent.change(orgCodeField, {
+        target: { value: "SKY1" },
+      });
       fireEvent.change(orgTranslationShortField, {
-        target: { value: "ZBT" },
+        target: { value: "skydive1" },
       });
       fireEvent.change(orgTranslationField, {
-        target: { value: "Zeta Beta Tau." },
+        target: { value: "skydiving1" },
       });
-      fireEvent.change(inactiveField, { target: { value: "false" } });
+      fireEvent.change(inactiveField, {
+        target: { value: "false" },
+      });
+
       fireEvent.click(submitButton);
 
       await waitFor(() => expect(mockToast).toBeCalled());
-      expect(mockToast).toBeCalledWith(
-        "UCSBOrganization Updated - orgCode: ZBT",
+      expect(mockToast).toHaveBeenCalledWith(
+        "Organization Updated - id: SKY1 orgCode: SKY1",
       );
 
-      expect(mockNavigate).toBeCalledWith({ to: "/ucsborganizations" });
+      expect(mockNavigate).toHaveBeenCalledWith({ to: "/ucsborganizations" });
 
       expect(axiosMock.history.put.length).toBe(1); // times called
-      expect(axiosMock.history.put[0].params).toEqual({ id: "ZBT" });
+      expect(axiosMock.history.put[0].params).toEqual({ code: "SKY" });
       expect(axiosMock.history.put[0].data).toBe(
         JSON.stringify({
-          // orgCode: "ZBT",
-          orgTranslationShort: "ZBT",
-          orgTranslation: "Zeta Beta Tau.",
+          orgCode: "SKY1",
+          orgTranslationShort: "skydive1",
+          orgTranslation: "skydiving1",
           inactive: "false",
         }),
       ); // posted object
@@ -181,30 +192,34 @@ describe("UCSBOrganizationsEditPage tests", () => {
         "UCSBOrganizationForm-orgTranslation",
       );
       const inactiveField = screen.getByTestId("UCSBOrganizationForm-inactive");
-      const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
+      const submitButton = screen.getByText("Update");
 
-      expect(orgCodeField).toHaveValue("ZBT");
-      expect(orgTranslationShortField).toHaveValue("ZBT");
-      expect(orgTranslationField).toHaveValue("Zeta Beta Tau");
-      expect(inactiveField).toHaveValue("false");
-
+      expect(orgCodeField).toHaveValue("SKY");
+      expect(orgTranslationShortField).toHaveValue("skydive");
+      expect(orgTranslationField).toHaveValue("skydiving");
+      expect(inactiveField).toHaveValue("true");
       expect(submitButton).toBeInTheDocument();
 
+      fireEvent.change(orgCodeField, {
+        target: { value: "SKY1" },
+      });
       fireEvent.change(orgTranslationShortField, {
-        target: { value: "ZBT" },
+        target: { value: "skydive1" },
       });
       fireEvent.change(orgTranslationField, {
-        target: { value: "Zeta Beta Tau" },
+        target: { value: "skydiving1" },
+      });
+      fireEvent.change(inactiveField, {
+        target: { value: "false" },
       });
 
-      fireEvent.change(inactiveField, { target: { value: "true" } });
       fireEvent.click(submitButton);
 
       await waitFor(() => expect(mockToast).toBeCalled());
-      expect(mockToast).toBeCalledWith(
-        "UCSBOrganization Updated - orgCode: ZBT",
+      expect(mockToast).toHaveBeenCalledWith(
+        "Organization Updated - id: SKY1 orgCode: SKY1",
       );
-      expect(mockNavigate).toBeCalledWith({ to: "/ucsborganizations" });
+      expect(mockNavigate).toHaveBeenCalledWith({ to: "/ucsborganizations" });
     });
   });
 });

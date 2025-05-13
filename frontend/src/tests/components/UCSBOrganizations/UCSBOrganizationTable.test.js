@@ -1,5 +1,5 @@
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
-import { ucsborganizationFixtures } from "fixtures/ucsborganizationFixtures";
+import { ucsbOrganizationFixtures } from "fixtures/ucsbOrganizationFixtures";
 import UCSBOrganizationTable from "main/components/UCSBOrganizations/UCSBOrganizationTable";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
@@ -70,7 +70,7 @@ describe("UCSBOrganizationTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBOrganizationTable
-            ucsborganizations={ucsborganizationFixtures.threeUCSBOrganization}
+            ucsborganizations={ucsbOrganizationFixtures.threeOrganization}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -90,39 +90,39 @@ describe("UCSBOrganizationTable tests", () => {
 
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
-    ).toHaveTextContent("ZBT");
+    ).toHaveTextContent("SKY");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-orgTranslationShort`),
-    ).toHaveTextContent("ZBT");
+    ).toHaveTextContent("skydive");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-orgTranslation`),
-    ).toHaveTextContent("Zeta Beta Tau");
+    ).toHaveTextContent("skydiving");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-inactive`),
-    ).toHaveTextContent("false");
+    ).toHaveTextContent("true");
 
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-orgCode`),
-    ).toHaveTextContent("LOS");
+    ).toHaveTextContent("APA");
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-orgTranslationShort`),
-    ).toHaveTextContent("LI");
+    ).toHaveTextContent("Alpha Phi Aloha");
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-orgTranslation`),
-    ).toHaveTextContent("Los Ingenieros");
+    ).toHaveTextContent("Alpha Phi Alpha");
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-inactive`),
-    ).toHaveTextContent("false");
+    ).toHaveTextContent("true");
 
     expect(
       screen.getByTestId(`${testId}-cell-row-2-col-orgCode`),
-    ).toHaveTextContent("DTD");
+    ).toHaveTextContent("ZPR");
     expect(
       screen.getByTestId(`${testId}-cell-row-2-col-orgTranslationShort`),
-    ).toHaveTextContent("Delta");
+    ).toHaveTextContent("Zeta Phi Rho");
     expect(
       screen.getByTestId(`${testId}-cell-row-2-col-orgTranslation`),
-    ).toHaveTextContent("Delta Tau Delta");
+    ).toHaveTextContent("Zeta Phi Rho");
     expect(
       screen.getByTestId(`${testId}-cell-row-2-col-inactive`),
     ).toHaveTextContent("false");
@@ -149,7 +149,7 @@ describe("UCSBOrganizationTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBOrganizationTable
-            ucsborganizations={ucsborganizationFixtures.threeUCSBOrganization}
+            ucsborganizations={ucsbOrganizationFixtures.threeOrganization}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -169,39 +169,39 @@ describe("UCSBOrganizationTable tests", () => {
 
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
-    ).toHaveTextContent("ZBT");
+    ).toHaveTextContent("SKY");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-orgTranslationShort`),
-    ).toHaveTextContent("ZBT");
+    ).toHaveTextContent("skydive");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-orgTranslation`),
-    ).toHaveTextContent("Zeta Beta Tau");
+    ).toHaveTextContent("skydiving");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-inactive`),
-    ).toHaveTextContent("false");
+    ).toHaveTextContent("true");
 
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-orgCode`),
-    ).toHaveTextContent("LOS");
+    ).toHaveTextContent("APA");
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-orgTranslationShort`),
-    ).toHaveTextContent("LI");
+    ).toHaveTextContent("Alpha Phi Aloha");
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-orgTranslation`),
-    ).toHaveTextContent("Los Ingenieros");
+    ).toHaveTextContent("Alpha Phi Alpha");
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-inactive`),
-    ).toHaveTextContent("false");
+    ).toHaveTextContent("true");
 
     expect(
       screen.getByTestId(`${testId}-cell-row-2-col-orgCode`),
-    ).toHaveTextContent("DTD");
+    ).toHaveTextContent("ZPR");
     expect(
       screen.getByTestId(`${testId}-cell-row-2-col-orgTranslationShort`),
-    ).toHaveTextContent("Delta");
+    ).toHaveTextContent("Zeta Phi Rho");
     expect(
       screen.getByTestId(`${testId}-cell-row-2-col-orgTranslation`),
-    ).toHaveTextContent("Delta Tau Delta");
+    ).toHaveTextContent("Zeta Phi Rho");
     expect(
       screen.getByTestId(`${testId}-cell-row-2-col-inactive`),
     ).toHaveTextContent("false");
@@ -219,7 +219,7 @@ describe("UCSBOrganizationTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBOrganizationTable
-            ucsborganizations={ucsborganizationFixtures.threeUCSBOrganization}
+            ucsborganizations={ucsbOrganizationFixtures.threeOrganization}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -229,10 +229,10 @@ describe("UCSBOrganizationTable tests", () => {
     // assert - check that the expected content is rendered
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
-    ).toHaveTextContent("ZBT");
+    ).toHaveTextContent("SKY");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-orgTranslationShort`),
-    ).toHaveTextContent("ZBT");
+    ).toHaveTextContent("skydive");
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -245,7 +245,7 @@ describe("UCSBOrganizationTable tests", () => {
     // assert - check that the navigate function was called with the expected path
     await waitFor(() =>
       expect(mockedNavigate).toHaveBeenCalledWith(
-        "/ucsborganizations/edit/ZBT",
+        "/ucsborganizations/edit/SKY",
       ),
     );
   });
@@ -264,7 +264,7 @@ describe("UCSBOrganizationTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBOrganizationTable
-            ucsborganizations={ucsborganizationFixtures.threeUCSBOrganization}
+            ucsborganizations={ucsbOrganizationFixtures.threeOrganization}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -274,7 +274,7 @@ describe("UCSBOrganizationTable tests", () => {
     // assert - check that the expected content is rendered
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
-    ).toHaveTextContent("ZBT");
+    ).toHaveTextContent("SKY");
 
     const deleteButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Delete-button`,
@@ -286,6 +286,6 @@ describe("UCSBOrganizationTable tests", () => {
 
     // assert - check that the delete endpoint was called
     await waitFor(() => expect(axiosMock.history.delete.length).toBe(1));
-    expect(axiosMock.history.delete[0].params).toEqual({ orgCode: "ZBT" });
+    expect(axiosMock.history.delete[0].params).toEqual({ orgCode: "SKY" });
   });
 });

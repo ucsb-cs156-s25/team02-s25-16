@@ -3,15 +3,15 @@ import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { http, HttpResponse } from "msw";
 
-import UCSBOrganizationEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationsEditPage";
-import { ucsborganizationFixtures } from "fixtures/ucsborganizationFixtures";
+import UCSBOrganizationsEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationsEditPage";
+import { ucsbOrganizationFixtures } from "fixtures/ucsbOrganizationFixtures";
 
 export default {
   title: "pages/UCSBOrganizations/UCSBOrganizationsEditPage",
-  component: UCSBOrganizationEditPage,
+  component: UCSBOrganizationsEditPage,
 };
 
-const Template = () => <UCSBOrganizationEditPage storybook={true} />;
+const Template = () => <UCSBOrganizationsEditPage storybook={true} />;
 
 export const Default = Template.bind({});
 Default.parameters = {
@@ -26,18 +26,22 @@ Default.parameters = {
         status: 200,
       });
     }),
-    http.get("/api/ucsborganization", () => {
-      return HttpResponse.json(
-        ucsborganizationFixtures.threeUCSBOrganization[0],
-        {
-          status: 200,
-        },
-      );
-    }),
-    http.put("/api/ucsborganization", () => {
-      return HttpResponse.json(ucsborganizationFixtures.oneOrganization[0], {
+    http.get("/api/ucsborganizations", () => {
+      return HttpResponse.json(ucsbOrganizationFixtures.threeOrganization, {
         status: 200,
       });
+    }),
+    http.put("/api/ucsborganizations", () => {
+      return HttpResponse.json(
+        {
+          id: 17,
+          orgCode: "SKY",
+          orgTranslationShort: "skydive",
+          orgTranslation: "skydiving",
+          inactive: true,
+        },
+        { status: 200 },
+      );
     }),
   ],
 };

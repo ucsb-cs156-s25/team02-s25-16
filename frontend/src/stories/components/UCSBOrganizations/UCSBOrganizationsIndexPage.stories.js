@@ -1,10 +1,10 @@
 import React from "react";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
+import { ucsbOrganizationFixtures } from "fixtures/ucsbOrganizationFixtures";
 import { http, HttpResponse } from "msw";
 
 import UCSBOrganizationsIndexPage from "main/pages/UCSBOrganizations/UCSBOrganizationsIndexPage";
-import { ucsborganizationFixtures } from "fixtures/ucsborganizationFixtures";
 
 export default {
   title: "pages/UCSBOrganizations/UCSBOrganizationsIndexPage",
@@ -43,7 +43,7 @@ ThreeItemsOrdinaryUser.parameters = {
       return HttpResponse.json(systemInfoFixtures.showingNeither);
     }),
     http.get("/api/ucsborganizations/all", () => {
-      return HttpResponse.json(ucsborganizationFixtures.threeUCSBOrganization);
+      return HttpResponse.json(ucsbOrganizationFixtures.threeOrganization);
     }),
   ],
 };
@@ -59,7 +59,7 @@ ThreeItemsAdminUser.parameters = {
       return HttpResponse.json(systemInfoFixtures.showingNeither);
     }),
     http.get("/api/ucsborganizations/all", () => {
-      return HttpResponse.json(ucsborganizationFixtures.threeUCSBOrganization);
+      return HttpResponse.json(ucsbOrganizationFixtures.threeOrganization);
     }),
     http.delete("/api/ucsborganizations", () => {
       return HttpResponse.json(

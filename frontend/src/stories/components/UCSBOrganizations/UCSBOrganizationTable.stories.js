@@ -1,6 +1,6 @@
 import React from "react";
 import UCSBOrganizationTable from "main/components/UCSBOrganizations/UCSBOrganizationTable";
-import { ucsborganizationFixtures } from "fixtures/ucsborganizationFixtures";
+import { ucsbOrganizationFixtures } from "fixtures/ucsbOrganizationFixtures";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
 import { http, HttpResponse } from "msw";
 
@@ -23,13 +23,13 @@ Empty.args = {
 export const ThreeItemsOrdinaryUser = Template.bind({});
 
 ThreeItemsOrdinaryUser.args = {
-  ucsborganizations: ucsborganizationFixtures.threeUCSBOrganization,
+  ucsborganizations: ucsbOrganizationFixtures.threeOrganization,
   currentUser: currentUserFixtures.userOnly,
 };
 
 export const ThreeItemsAdminUser = Template.bind({});
 ThreeItemsAdminUser.args = {
-  ucsborganizations: ucsborganizationFixtures.threeUCSBOrganization,
+  ucsborganizations: ucsbOrganizationFixtures.threeOrganization,
   currentUser: currentUserFixtures.adminUser,
 };
 

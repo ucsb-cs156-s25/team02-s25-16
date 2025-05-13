@@ -5,7 +5,7 @@ import { http, HttpResponse } from "msw";
 
 import UCSBOrganizationsCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationsCreatePage";
 
-import { ucsborganizationFixtures } from "fixtures/ucsborganizationFixtures";
+import { ucsbOrganizationFixtures } from "fixtures/ucsbOrganizationFixtures";
 
 export default {
   title: "pages/UCSBOrganizations/UCSBOrganizationsCreatePage",
@@ -27,8 +27,8 @@ Default.parameters = {
         status: 200,
       });
     }),
-    http.post("/api/ucsborganization/post", () => {
-      return HttpResponse.json(ucsborganizationFixtures.oneOrganization[0], {
+    http.post("/api/ucsborganizations/post", () => {
+      return HttpResponse.json(ucsbOrganizationFixtures.oneOrganization, {
         status: 200,
       });
     }),

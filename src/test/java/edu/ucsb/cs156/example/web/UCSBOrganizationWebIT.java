@@ -25,14 +25,14 @@ public class UCSBOrganizationWebIT extends WebTestCase {
         //page.waitForURL("**/ucsborganizations");
         page.getByText("Create ucsborganizations").click();
         assertThat(page.getByText("Create New Organization")).isVisible();
-        page.getByLabel("OrgCode").fill("ZBT");
-        page.getByLabel("OrgTranslationShort").fill("ZBT");
-        page.getByTestId("UCSBOrganizationForm-orgTranslation").fill("ZETA BETA TAU");
+        page.getByLabel("OrgCode").fill("ZPR");
+        page.getByLabel("OrgTranslationShort").fill("ZETA PHI RHO");
+        page.getByTestId("UCSBOrganizationForm-orgTranslation").fill("ZETA PHI RHO FRAT");
         page.getByLabel("Inactive").selectOption("false");
         page.getByTestId("UCSBOrganizationForm-submit").click();
 
         assertThat(page.getByTestId("UCSBOrganizationTable-cell-row-0-col-orgTranslation"))
-                .hasText("ZETA BETA TAU");
+                .hasText("ZETA PHI RHO FRAT");
 
         page.getByTestId("UCSBOrganizationTable-cell-row-0-col-Edit-button").click();
         assertThat(page.getByText("Edit UCSBOrganization")).isVisible();

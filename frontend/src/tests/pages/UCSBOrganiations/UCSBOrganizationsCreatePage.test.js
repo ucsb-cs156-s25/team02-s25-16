@@ -64,14 +64,18 @@ describe("UCSBOrganizationsCreatePage tests", () => {
 
   test("on submit, makes request to backend, and redirects to /ucsborganizations", async () => {
     const queryClient = new QueryClient();
-    const ucsbOrganization = {
-      orgCode: "LOS",
-      orgTranslationShort: "LI",
-      orgTranslation: "Los Ingenieros",
-      inactive: false,
+
+    const ucsborganization = {
+      id: 4,
+      orgCode: "ZPR",
+      orgTranslationShort: "Zeta Phi Rho",
+      orgTranslation: "Zeta Phi Rho",
+      inactive: "false",
     };
 
-    axiosMock.onPost("/api/ucsborganization/post").reply(202, ucsbOrganization);
+    axiosMock
+      .onPost("/api/ucsborganizations/post")
+      .reply(202, ucsborganization);
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -102,29 +106,29 @@ describe("UCSBOrganizationsCreatePage tests", () => {
     const createButton = screen.getByText("Create");
     expect(createButton).toBeInTheDocument();
 
-    fireEvent.change(orgCodeInput, { target: { value: "LOS" } });
+    fireEvent.change(orgCodeInput, { target: { value: "ZPR" } });
     fireEvent.change(orgTranslationShortInput, {
-      target: { value: "LI" },
+      target: { value: "Zeta Phi Rho" },
     });
     fireEvent.change(orgTranslationInput, {
-      target: { value: "Los Ingenieros" },
+      target: { value: "Zeta Phi Rho" },
     });
-    fireEvent.change(inactiveInput, { target: { value: "false" } });
+    fireEvent.change(inactiveInput, { target: { value: false } });
     fireEvent.click(createButton);
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
     expect(axiosMock.history.post[0].params).toEqual({
-      orgCode: "LOS",
-      orgTranslationShort: "LI",
-      orgTranslation: "Los Ingenieros",
+      orgCode: "ZPR",
+      orgTranslationShort: "Zeta Phi Rho",
+      orgTranslation: "Zeta Phi Rho",
       inactive: "false",
     });
 
     // assert - check that the toast was called with the expected message
-    expect(mockToast).toBeCalledWith(
-      "New UCSBOrganization Created - OrgCode: LOS",
+    expect(mockToast).toHaveBeenCalledWith(
+      "New organization Created - id: 4 orgCode: ZPR",
     );
-    expect(mockNavigate).toBeCalledWith({ to: "/ucsborganizations" });
+    expect(mockNavigate).toHaveBeenLastCalledWith({ to: "/ucsborganizations" });
   });
 });

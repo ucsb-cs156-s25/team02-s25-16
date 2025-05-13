@@ -2,11 +2,11 @@ import React from "react";
 import { useBackend } from "main/utils/useBackend";
 
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import UCSBOrganizationTable from "main/components/UCSBOrganizations/UCSBOrganizationTable";
+import UCSBOrganizationsTable from "main/components/UCSBOrganizations/UCSBOrganizationTable";
 import { useCurrentUser, hasRole } from "main/utils/currentUser";
 import { Button } from "react-bootstrap";
 
-export default function UCSBOrganizationIndexPage() {
+export default function UCSBOrganizationsIndexPage() {
   const currentUser = useCurrentUser();
 
   const {
@@ -15,8 +15,8 @@ export default function UCSBOrganizationIndexPage() {
     status: _status,
   } = useBackend(
     // Stryker disable next-line all : don't test internal caching of React Query
-    ["/api/ucsborganization/all"],
-    { method: "GET", url: "/api/ucsborganization/all" },
+    ["/api/ucsborganizations/all"],
+    { method: "GET", url: "/api/ucsborganizations/all" },
     // Stryker disable next-line all : don't test default value of empty list
     [],
   );
@@ -29,7 +29,7 @@ export default function UCSBOrganizationIndexPage() {
           href="/ucsborganizations/create"
           style={{ float: "right" }}
         >
-          Create ucsborganizations
+          Create Organization
         </Button>
       );
     }
@@ -39,8 +39,8 @@ export default function UCSBOrganizationIndexPage() {
     <BasicLayout>
       <div className="pt-2">
         {createButton()}
-        <h1>UCSBOrganization</h1>
-        <UCSBOrganizationTable
+        <h1>UCSB Organizations</h1>
+        <UCSBOrganizationsTable
           ucsborganizations={ucsborganizations}
           currentUser={currentUser}
         />
