@@ -55,28 +55,28 @@ public class UCSBOrganizationIT {
         @MockBean
         UserRepository userRepository;
 
-        // @WithMockUser(roles = { "USER" })
-        // @Test
-        // public void test_that_logged_in_user_can_get_by_id_when_the_id_exists() throws Exception {
-        //         // arrange
-        //         UCSBOrganization ucsbOrganizations = UCSBOrganization.builder()
-        //                 .orgCode("ZPR")
-        //                 .orgTranslationShort("ZETA PHI RHO")
-        //                 .orgTranslation("ZETA PHI RHO")
-        //                 .inactive(false)
-        //                 .build();
+        @WithMockUser(roles = { "USER" })
+        @Test
+        public void test_that_logged_in_user_can_get_by_id_when_the_id_exists() throws Exception {
+                // arrange
+                UCSBOrganization ucsbOrganizations = UCSBOrganization.builder()
+                        .orgCode("ZPR")
+                        .orgTranslationShort("ZETA PHI RHO")
+                        .orgTranslation("ZETA PHI RHO")
+                        .inactive(false)
+                        .build();
 
-        //         ucsbOrganizationRepository.save(ucsbOrganizations);
+                ucsbOrganizationRepository.save(ucsbOrganizations);
 
-        //         // act
-        //         MvcResult response = mockMvc.perform(get("/api/ucsborganizations?orgCode=ZPR"))
-        //                         .andExpect(status().isOk()).andReturn();
+                // act
+                MvcResult response = mockMvc.perform(get("/api/ucsborganizations?orgCode=ZPR"))
+                                .andExpect(status().isOk()).andReturn();
 
-        //         // assert
-        //         String expectedJson = mapper.writeValueAsString(ucsbOrganizations);
-        //         String responseString = response.getResponse().getContentAsString();
-        //         assertEquals(expectedJson, responseString);
-        // }
+                // assert
+                String expectedJson = mapper.writeValueAsString(ucsbOrganizations);
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(expectedJson, responseString);
+        }
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test

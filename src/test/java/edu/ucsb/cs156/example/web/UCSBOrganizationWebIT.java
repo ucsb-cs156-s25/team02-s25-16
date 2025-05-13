@@ -17,34 +17,34 @@ import edu.ucsb.cs156.example.WebTestCase;
 @ActiveProfiles("integration")
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 public class UCSBOrganizationWebIT extends WebTestCase {
-    // @Test
-    // public void admin_user_can_create_edit_delete_ucsborganizations() throws Exception {
-    //     setupUser(true);
+    @Test
+    public void admin_user_can_create_edit_delete_ucsborganizations() throws Exception {
+        setupUser(true);
 
-    //     page.getByText("UCSB Organizations").click();
-    //     //page.waitForURL("**/ucsborganizations");
-    //     page.getByText("Create ucsborganizations").click();
-    //     assertThat(page.getByText("Create New Organization")).isVisible();
-    //     page.getByLabel("OrgCode").fill("ZPR");
-    //     page.getByLabel("OrgTranslationShort").fill("ZETA PHI RHO");
-    //     page.getByTestId("UCSBOrganizationForm-orgTranslation").fill("ZETA PHI RHO FRAT");
-    //     page.getByLabel("Inactive").selectOption("false");
-    //     page.getByTestId("UCSBOrganizationForm-submit").click();
+        page.getByText("UCSB Organizations").click();
+        //page.waitForURL("**/ucsborganizations");
+        page.getByText("Create ucsborganizations").click();
+        assertThat(page.getByText("Create New Organization")).isVisible();
+        page.getByLabel("OrgCode").fill("ZPR");
+        page.getByLabel("OrgTranslationShort").fill("ZETA PHI RHO");
+        page.getByTestId("UCSBOrganizationForm-orgTranslation").fill("ZETA PHI RHO FRAT");
+        page.getByLabel("Inactive").selectOption("false");
+        page.getByTestId("UCSBOrganizationForm-submit").click();
 
-    //     assertThat(page.getByTestId("UCSBOrganizationTable-cell-row-0-col-orgTranslation"))
-    //             .hasText("ZETA PHI RHO FRAT");
+        assertThat(page.getByTestId("UCSBOrganizationTable-cell-row-0-col-orgTranslation"))
+                .hasText("ZETA PHI RHO FRAT");
 
-    //     page.getByTestId("UCSBOrganizationTable-cell-row-0-col-Edit-button").click();
-    //     assertThat(page.getByText("Edit UCSBOrganization")).isVisible();
-    //     page.getByLabel("Inactive").selectOption("true");
-    //     page.getByTestId("UCSBOrganizationForm-submit").click();
+        page.getByTestId("UCSBOrganizationTable-cell-row-0-col-Edit-button").click();
+        assertThat(page.getByText("Edit UCSBOrganization")).isVisible();
+        page.getByLabel("Inactive").selectOption("true");
+        page.getByTestId("UCSBOrganizationForm-submit").click();
 
-    //     assertThat(page.getByTestId("UCSBOrganizationTable-cell-row-0-col-inactive")).hasText("true");
+        assertThat(page.getByTestId("UCSBOrganizationTable-cell-row-0-col-inactive")).hasText("true");
 
-    //     page.getByTestId("UCSBOrganizationTable-cell-row-0-col-Delete-button").click();
+        page.getByTestId("UCSBOrganizationTable-cell-row-0-col-Delete-button").click();
 
-    //     assertThat(page.getByTestId("UCSBOrganizationTable-cell-row-0-col-orgCode")).not().isVisible();
-    // }
+        assertThat(page.getByTestId("UCSBOrganizationTable-cell-row-0-col-orgCode")).not().isVisible();
+    }
 
     @Test
     public void regular_user_cannot_create_ucsborganizations() throws Exception {
