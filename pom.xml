@@ -163,7 +163,6 @@
       -->
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-
         <configuration>
           <!-- Activate the use of TCP to transmit events to the plugin -->
           <forkNode

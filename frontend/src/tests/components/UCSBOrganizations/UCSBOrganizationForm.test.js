@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import UCSBOrganizationForm from "main/components/UCSBOrganizations/UCSBOrganizationForm";
-import { ucsborganizationFixtures } from "fixtures/ucsborganizationFixtures";
+import { ucsbOrganizationFixtures } from "fixtures/ucsborganizationFixtures";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -46,7 +46,7 @@ describe("UCSBOrganizationForm tests", () => {
       <QueryClientProvider client={queryClient}>
         <Router>
           <UCSBOrganizationForm
-            initialContents={ucsborganizationFixtures.oneOrganization}
+            initialContents={ucsbOrganizationFixtures.oneOrganization}
           />
         </Router>
       </QueryClientProvider>,
@@ -61,14 +61,14 @@ describe("UCSBOrganizationForm tests", () => {
 
     expect(await screen.findByTestId(`${testId}-orgCode`)).toBeInTheDocument();
     expect(screen.getByText("OrgCode")).toBeInTheDocument();
-    expect(screen.getByTestId(`${testId}-orgCode`)).toHaveValue("ZBT");
+    expect(screen.getByTestId(`${testId}-orgCode`)).toHaveValue("APA");
 
     expect(
       await screen.findByTestId(`${testId}-orgTranslationShort`),
     ).toBeInTheDocument();
     expect(screen.getByText("OrgTranslationShort")).toBeInTheDocument();
     expect(screen.getByTestId(`${testId}-orgTranslationShort`)).toHaveValue(
-      "ZBT",
+      "Alpha Phi Aloha",
     );
 
     expect(
@@ -76,12 +76,12 @@ describe("UCSBOrganizationForm tests", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("OrgTranslation")).toBeInTheDocument();
     expect(screen.getByTestId(`${testId}-orgTranslation`)).toHaveValue(
-      "Zeta Beta Tau",
+      "Alpha Phi Alpha",
     );
 
     const inactiveDropdown = await screen.findByTestId(`${testId}-inactive`);
     expect(inactiveDropdown).toBeInTheDocument();
-    expect(screen.getByTestId(`${testId}-inactive`)).toHaveValue("false");
+    expect(screen.getByTestId(`${testId}-inactive`)).toHaveValue("true");
   });
 
   test("that navigate(-1) is called when Cancel is clicked", async () => {
@@ -113,10 +113,10 @@ describe("UCSBOrganizationForm tests", () => {
     const submitButton = screen.getByText(/Create/);
     fireEvent.click(submitButton);
 
-    await screen.findByText(/OrgCode is required/);
-    await screen.findByText(/OrgTranslationShort is required/);
-    await screen.findByText(/OrgTranslation is required/);
-    await screen.findByText(/Inactive is required/);
+    await screen.findByText(/orgcode is required./);
+    await screen.findByText(/orgtranslationshort is required./);
+    await screen.findByText(/orgtranslation is required./);
+    await screen.findByText(/inactive is required./);
   });
 
   test("dropdown for inactive can be selected", async () => {
