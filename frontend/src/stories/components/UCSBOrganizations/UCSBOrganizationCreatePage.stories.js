@@ -5,7 +5,7 @@ import { http, HttpResponse } from "msw";
 
 import UCSBOrganizationsCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationsCreatePage";
 
-import { ucsbOrganizationFixtures } from "fixtures/ucsbOrganizationFixtures";
+import { ucsbOrganizationFixtures } from "fixtures/ucsborganizationFixtures";
 
 export default {
   title: "pages/UCSBOrganizations/UCSBOrganizationsCreatePage",
